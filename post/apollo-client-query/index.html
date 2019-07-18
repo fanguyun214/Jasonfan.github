@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apollo Client - 2.Query | Jasonfan</title>
 <meta name="description" content="持之以恒，挑战自我 🌱🌱🌱" />
-<link rel="shortcut icon" href="http://fanguyun214.github.io/favicon.ico?v=1563461954155">
+<link rel="shortcut icon" href="http://fanguyun214.github.io/favicon.ico?v=1563462305824">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://fanguyun214.github.io/styles/main.css">
@@ -29,7 +29,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="http://fanguyun214.github.io">
-  <img class="avatar" src="http://fanguyun214.github.io/images/avatar.png?v=1563461954155" alt="">
+  <img class="avatar" src="http://fanguyun214.github.io/images/avatar.png?v=1563462305824" alt="">
   </a>
   <h1 class="site-title">
     Jasonfan
@@ -126,7 +126,7 @@
 <blockquote>
 <p>如果你想参考这些例子，请打开 CodeSandbox 上的 <a href="https://codesandbox.io/s/j2ly83749w">启动项目</a>和 <a href="https://codesandbox.IO/S/32ypr38l61">this CodeSandbox</a> 上的示例 GraphQL 服务器。 您可以查看应用程序的 <a href="https://codesandbox.io/s/n3jykqpxwm">完整版本</a>。</p>
 </blockquote>
-<h3 id="query组件">Query组件</h3>
+<h2 id="query组件">Query组件</h2>
 <p>Query 组件是 Apollo 应用程序最重要的构建块之一。 要创建 Query 组件， 只需将包含 <code>gql</code> 函数的 GraphQL 查询字符串传递给 <code>this.props.query</code> ，并为 <code>this.props.children</code> 提供一个函数，告诉 React 要呈现什么。<br>
 <code>Query</code> 组件是使用 <a href="https://reactjs.org/docs/render-props.html">render prop</a> 模式的React组件的示例。 React将使用 Apollo Client 中的对象调用您提供的 render prop 函数，该对象包含可用于呈现 UI 的加载，错误和数据属性。 我们来看一个例子：</p>
 <p>首先，让我们创建 GraphQL 查询。 请记住将查询字符串包装在 <code>gql</code> 函数中，以便将其解析为查询文档。 一旦我们创建好 GraphQL 查询，让我们通过将它传递给 <code>query</code> prop 来将它附加到我们的 <code>Query</code> 组件。</p>
@@ -164,7 +164,7 @@ const Dogs = ({ onDogSelected }) =&gt; (
 </code></pre>
 <p>如果你在 <code>App</code> 组件中渲染 <code>Dogs</code>，一旦 Apollo Client 从服务器接收数据，你将首先看到加载状态，然后是带有狗品种列表的表单。 当表单值改变时，我们将通过 <code>this.props.onDogSelected</code> 将值发送给父组件， 最终将值传递给 <code>DogPhoto</code> 组件。</p>
 <p>在下一步中，我们将通过构建一个 <code>DogPhoto</code> 组件将表单挂载到一个更复杂的变量查询。</p>
-<h3 id="接收数据">接收数据</h3>
+<h2 id="接收数据">接收数据</h2>
 <p>您已经在 render prop 函数中看到了如何处理查询结果。 当我们从 <code>Query</code> 组件中获取数据时，让我们深入了解 Apollo Client 幕后发生的事情。</p>
 <ol>
 <li>当 <code>Query</code> 组件安装时，Apollo Client 会为我们的查询创建一个 observable。 我们的组件通过 Apollo Client 缓存订阅查询结果。</li>
@@ -197,7 +197,7 @@ const DogPhoto = ({ breed }) =&gt; (
 <p>您会注意到 <code>Query</code> 组件上有一个新的配置选项。 prop<code>variable</code> 是一个包含我们想要传递给 GraphQL 查询的变量对象。 在这种情况下，我们希望将表格中的品种传递给我们的查询。</p>
 <p>尝试从列表中选择 &quot;bulldog&quot; 以查看其照片显示。 然后，切换到另一个品种并切换回 &quot;bulldog&quot;。 你会注意到牛头犬照片第二次瞬间加载。 这是 Apollo 缓存在起作用！</p>
 <p>接下来，让我们学习一些确保数据新鲜的技术，例如轮询和重新获取。</p>
-<h3 id="轮询和重新获取">轮询和重新获取</h3>
+<h2 id="轮询和重新获取">轮询和重新获取</h2>
 <p>Apollo Client 为您缓存数据真是太棒了，但是当我们需要新数据时我们应该怎么做？ 两种解决方案是轮询和重新获取。</p>
 <p>轮询可以通过在指定的时间间隔内重新获取来帮助我们实现接近实时的数据。 要实现轮询，只需将 <code>pollInterval</code> prop传递给 <code>Query</code> 组件，间隔为 ms。 如果传入 0，查询将不会轮询。 您还可以通过在传递给 render prop 函数的结果对象上使用 <code>startPolling</code> 和 <code>stopPolling</code> 函数来实现动态轮询。</p>
 <pre><code class="language-jsx">const DogPhoto = ({ breed }) =&gt; (
@@ -244,7 +244,7 @@ const DogPhoto = ({ breed }) =&gt; (
 );
 </code></pre>
 <p>如果单击该按钮，您会注意到我们的 UI 更新了最新的数据。 重新获取是保证新数据的一种很好的方法，但它在加载状态时引入了一些额外的复杂性。 在下一节中，您将学习处理复杂加载和错误状态的策略。</p>
-<h3 id="加载和错误状态">加载和错误状态</h3>
+<h2 id="加载和错误状态">加载和错误状态</h2>
 <p>我们已经看到 Apollo Client 如何在渲染函数中公开我们的查询的加载和错误状态。 这些属性对于初次查询加载时有用，但是当我们重新获取或轮询时，我们的加载状态会发生什么？</p>
 <p>让我们回到上一节中的示例。 如果单击 “Refetch” 按钮，您将看到组件在新数据到达之前不会重新呈现。 如果我们想向用户表明我们正在重新获取照片怎么办？</p>
 <p>幸运的是，Apollo Client 通过 render prop 函数中结果对象的 <code>networkStatus</code> 属性提供有关查询状态的细粒度信息。 我们还需要将 prop 的 notifyOnNetworkStatusChange 设置为 true ，以便我们的查询组件在重新加载时重新渲染。</p>
@@ -275,7 +275,7 @@ const DogPhoto = ({ breed }) =&gt; (
 </code></pre>
 <p><code>networkStatus</code> 属性是一个枚举，其数字值为 1-8，表示不同的加载状态。 4 对应重新获取，但也有用于轮询和分页的数字值。 有关所有可能加载状态的完整列表，请查看<a href="../api/react-apollo.html#graphql-query-data-networkStatus">参考指南</a>。</p>
 <p>虽然没有加载状态那么复杂，但是也可以通过 <code>Query</code> 组件上的 <code>errorPolicy</code> prop 来自定义组件中的错误。 <code>errorPolicy</code> 的默认值是 “none” ，我们将所有 GraphQL 错误视为运行时错误。 如果发生错误，Apollo Client 将丢弃随请求返回的任何数据，并将 render prop 函数中的 <code>error</code> 属性设置为 true。 如果您想显示任何部分数据以及任何错误信息，请将 <code>errorPolicy</code> 设置为 “all”。</p>
-<h3 id="手动触发查询">手动触发查询</h3>
+<h2 id="手动触发查询">手动触发查询</h2>
 <p>当 React 安装一个 <code>Query</code> 组件时，Apollo Client 会自动触发你的查询。 如果您想延迟触发查询，直到用户执行操作（例如单击按钮），该怎么办？ 对于这种情况，我们想要使用 <code>ApolloConsumer</code> 组件并直接调用 <code>client.query()</code>。</p>
 <pre><code class="language-jsx">import React, { Component } from 'react';
 import { ApolloConsumer } from 'react-apollo';
@@ -313,9 +313,9 @@ class DelayedQuery extends Component {
 <blockquote>
 <p>如果您想查看我们刚刚构建的应用程序的完整版本，您可以查看CodeSandbox <a href="https://codesandbox.io/s/n3jykqpxwm">此处</a>.</p>
 </blockquote>
-<h3 id="query-api-概览">Query API 概览</h3>
+<h2 id="query-api-概览">Query API 概览</h2>
 <p>如果您正在寻找所有 <code>Query</code> 组件接受及其渲染方法功能的概述，请不要再看了！ 大多数 <code>Query</code> 组件不需要所有这些配置选项，但知道它们存在是有用的。 如果您想通过使用示例更详细地了解 <code>Query</code> 组件 API，请访问我们的<a href="../api/react-apollo.html">参考指南</a>.</p>
-<h4 id="props">Props</h4>
+<h3 id="props">Props</h3>
 <p>Query 组件接受以下 props。 只有 <code>query</code> 和 <code>children</code>是必须的 <strong>required</strong>.</p>
 <dl>
   <dt>`query`: DocumentNode</dt>
@@ -347,7 +347,7 @@ class DelayedQuery extends Component {
   <dt>`partialRefetch`: boolean</dt>
   <dd>如果是 `true`，如果查询结果被标记为部分，则执行查询 `refetch`，并且由 Apollo Client `QueryManager` 将返回的数据重置为空对象（由于高速缓存未命中）。 出于向后兼容性的原因，默认值为 “false”，但对于大多数实例，应将其更改为true。</dd>
 </dl>
-<h4 id="render-prop-function">Render prop function</h4>
+<h3 id="render-prop-function">Render prop function</h3>
 <p>使用具有以下属性的对象（<code>QueryResult</code>）调用传递给 <code>Query</code> 的 <code>children</code> prop 的 render prop 函数。 此对象包含您的查询结果，以及一些有用的函数，用于重新获取，动态轮询和分页。</p>
 <dl>
   <dt>`data`: TData</dt>
@@ -376,7 +376,7 @@ class DelayedQuery extends Component {
   <dt>`client`: ApolloClient</dt>
   <dd>你的 'ApolloClient` 实例。 用于手动触发查询或将数据写入。</dd>
 </dl>
-<h3 id="下一步">下一步</h3>
+<h2 id="下一步">下一步</h2>
 <p>学习如何构建 <code>Query</code> 组件来获取数据是掌握 Apollo Client 开发的最重要技能之一。 既然您是获取数据的专家，为什么不尝试构建 <code>Mutation</code> 组件来更新您的数据？ 以下是我们认为可以帮助您提升技能的一些资源：</p>
 <ul>
 <li><a href="./mutations.html">Mutations</a>: 了解如何使用突变更新数据以及何时需要更新 Apollo 缓存。 有关选项的完整列表，请查看 <code>Mutation</code> 组件的API参考。</li>
@@ -388,8 +388,6 @@ class DelayedQuery extends Component {
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
-<li>
-<ul>
 <li>
 <ul>
 <li><a href="#query%E7%BB%84%E4%BB%B6">Query组件</a></li>
@@ -404,8 +402,6 @@ class DelayedQuery extends Component {
 </ul>
 </li>
 <li><a href="#%E4%B8%8B%E4%B8%80%E6%AD%A5">下一步</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
