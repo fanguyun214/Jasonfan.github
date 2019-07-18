@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://fanguyun214.github.io</id>
     <title>Jasonfan</title>
-    <updated>2019-07-18T14:53:46.279Z</updated>
+    <updated>2019-07-18T14:59:17.923Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://fanguyun214.github.io"/>
     <link rel="self" href="http://fanguyun214.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>http://fanguyun214.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, Jasonfan</rights>
     <entry>
-        <title type="html"><![CDATA[Apollo Client Query]]></title>
+        <title type="html"><![CDATA[Apollo Client - 2.Query]]></title>
         <id>http://fanguyun214.github.io/post/apollo-client-query</id>
         <link href="http://fanguyun214.github.io/post/apollo-client-query">
         </link>
