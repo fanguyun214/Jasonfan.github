@@ -1,338 +1,946 @@
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
+<meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jasonfan</title>
-<meta name="description" content="持之以恒，挑战自我 🌱🌱🌱" />
-<link rel="shortcut icon" href="http://fanguyun214.github.io/favicon.ico?v=1563464162364">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="http://fanguyun214.github.io/styles/main.css">
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<title>Jasonfan Blog</title>
+
+<link rel="shortcut icon" href="https://fanguyun214.github.io/favicon.ico?v=1616378338621">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fanguyun214.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144114666-1"></script>
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <div class="main-content">
+        <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Jasonfan Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1616378338621"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-144114666-1');
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
 </script>
 
+        <div class="post-list-container">
+    <div class="post-inner">
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/du-shu-bi-ji-ruan-ji-neng-dai-ma-zhi-wai-de-sheng-cun-zhi-nan/">
+                            <span class="post-title gt-c-content-color-first">【读书笔记】软技能-代码之外的生存指南</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-02-24 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/KfUu50R9U/" class="post-tag">
+                                # 读书
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/ERZQWgDhnK/" class="post-tag">
+                                # 思考
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/ieLVC6BDJo/" class="post-tag">
+                                # 职场
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/du-shu-bi-ji-ruan-ji-neng-dai-ma-zhi-wai-de-sheng-cun-zhi-nan/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/du-shu-bi-ji-ruan-ji-neng-dai-ma-zhi-wai-de-sheng-cun-zhi-nan.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/dockerandk8s-ru-men/">
+                            <span class="post-title gt-c-content-color-first">Docker&amp;k8s入门</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。</p>
 
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="http://fanguyun214.github.io">
-  <img class="avatar" src="http://fanguyun214.github.io/images/avatar.png?v=1563464162364" alt="">
-  </a>
-  <h1 class="site-title">
-    Jasonfan
-  </h1>
-  <p class="site-description">
-    持之以恒，挑战自我 🌱🌱🌱
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/fanguyun214" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-        <a href="https://twitter.com/home" target="_blank">
-          <i class="fab fa-twitter"></i>
-        </a>
-      
-    
-      
-        <a href="https://weibo.com/3307571020/profile" target="_blank">
-          <i class="fab fa-weibo"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-  </div>
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-12-16 ·
+                        </time>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/ji-yu-nrwlnx-de-gong-zuo-qu-zhong-lib-zhong-ru-he-yin-yong-environmentts-chai-yi-hua-pei-zhi/">
+                            <span class="post-title gt-c-content-color-first">Nrwl/NX工作区中lib差异化配置</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>基于environment在业务代码中实现不同环境下的差异化配置</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-12-04 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/LuLdrl4La/" class="post-tag">
+                                # ENV
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/6xU4bfZPU67/" class="post-tag">
+                                # ANGULAR
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/8-pCBu3Tk/" class="post-tag">
+                                # NX
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/docz-ji-lu-ni-de-dong-xi-cong-wei-ru-ci-jian-dan/">
+                            <span class="post-title gt-c-content-color-first">docz-记录你的东西从未如此简单</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>Docz基于MDX，MDX是Markdown + JSX，它为Markdown带来了组件世界。 MDX使得可以在Markdown样式的文件中导入和使用组件。 Docz充分利用了这一点，并提供了许多内置组件，这些组件可以增强和加快文档工作流程。Docz输出静态站点，你可以使用任何静态网站托管提供商来部署生成的docz网站。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-09-18 ·
+                        </time>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/qian-duan-xing-neng-you-hua-zhi-nan/">
+                            <span class="post-title gt-c-content-color-first">前端性能优化指南</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>性能优化一直以来都是前端工程领域中的一个重要部分。网站应用的性能（加载速度、交互流畅度）优化对于提高用户留存、转化率等都有积极影响。可以理解为，提升你的网站性能，就是提升你的业务数据（甚至是业务收入）。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-07-24 ·
+                        </time>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/qian-duan-xing-neng-you-hua-zhi-nan/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/qian-duan-xing-neng-you-hua-zhi-nan.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/ngrx-shi-yong/">
+                            <span class="post-title gt-c-content-color-first">NgRx使用</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>NgRx是用于在Angular中构建反应式应用程序的框架。NgRx提供状态管理，副作用隔离，实体集合管理，路由器绑定，代码生成以及开发人员工具，这些工具可增强开发人员在构建许多不同类型的应用程序时的体验。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-07-21 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/xp-qE3psyDd/" class="post-tag">
+                                # NGRX
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/6xU4bfZPU67/" class="post-tag">
+                                # ANGULAR
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/oFf0Uzxfvyw/" class="post-tag">
+                                # 状态管理
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/899l1JII0xX/" class="post-tag">
+                                # 数据流
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/ngrx-shi-yong/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/ngrx-shi-yong.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/charles-an-zhuang-ji-dai-li-pei-zhi/">
+                            <span class="post-title gt-c-content-color-first">Charles安装及代理配置</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>Charles是一款用于HTTP信息抓包工具，可以快速有效的获得HTTP信息，非常利于开发者的网页开发和调试修改等。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-05-21 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/a1ePnuRp1/" class="post-tag">
+                                # HTTPS
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/DFmBaDhcjM/" class="post-tag">
+                                # 代理
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/MMaQT6dqrh/" class="post-tag">
+                                # 抓包
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/LJZZCe_xIw/" class="post-tag">
+                                # 调试
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/qian-duan-kua-ping-tai-diao-shi/">
+                            <span class="post-title gt-c-content-color-first">前端跨平台调试</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>如何调试移动端页面一直是比较头疼的事。与桌面浏览器不同，当H5页面嵌入到app后，无法很方便地按出F12来查看元素，或者断点调试js。另外，移动端设备差异化非常严重，iphone 6 到 iphone 11，android 更是不用多说。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-04-27 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/xsC8BvdbF/" class="post-tag">
+                                # Debug
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/JNIiV17vx2/" class="post-tag">
+                                # 移动端
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/LJZZCe_xIw/" class="post-tag">
+                                # 调试
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/zhi-fu-bao-zhi-fu-jie-ru/">
+                            <span class="post-title gt-c-content-color-first">支付宝支付接入</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>支付宝开放平台，致力于为开发者提供支付、理财、信用、口碑开店、安全、营销、社交等各类能力及行业解决方案。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-03-02 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/kOO3Y9DvW/" class="post-tag">
+                                # 支付宝支付
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/cqxfWrXpvL/" class="post-tag">
+                                # Node
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/dPTLxySfF6/" class="post-tag">
+                                # Alipay
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/zhi-fu-bao-zhi-fu-jie-ru/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/zhi-fu-bao-zhi-fu-jie-ru.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/http-ke-hu-duan-huan-cun/">
+                            <span class="post-title gt-c-content-color-first">HTTP客户端缓存</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-01-13 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/eFsqcJKHw/" class="post-tag">
+                                # HTTP
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/oKE5ryH7Ba/" class="post-tag">
+                                # 缓存
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/ImBWv0_YK9/" class="post-tag">
+                                # 性能优化
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/http-ke-hu-duan-huan-cun/" class="post-feature-image"
+                       style="background-image: url('/post-images/http-ke-hu-duan-huan-cun.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/gong-zhong-hao-andh5-wei-xin-zhi-fu-jie-ru/">
+                            <span class="post-title gt-c-content-color-first">公众号&amp;H5微信支付接入</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>商户在微信公众平台或开放平台提交微信支付申请，微信支付工作人员审核资料无误后开通相应的微信支付权限。微信支付申请审核通过后，商户在申请资料填写的邮箱中收取到由微信支付小助手发送的邮件，此邮件包含开发时需要使用的支付账户信息。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-12-03 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/8bpYHQpEF/" class="post-tag">
+                                # 微信
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/VJa6GL78FP/" class="post-tag">
+                                # 公众号
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/xUxaLbu8tX/" class="post-tag">
+                                # 支付
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/OroaBJumjK/" class="post-tag">
+                                # H5
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/gong-zhong-hao-andh5-wei-xin-zhi-fu-jie-ru/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/gong-zhong-hao-andh5-wei-xin-zhi-fu-jie-ru.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/superset-xin-zeng-tu-biao-lei-xing/">
+                            <span class="post-title gt-c-content-color-first">Superset新增图表类型</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-09-18 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/cLVLj82xQ/" class="post-tag">
+                                # 大数据
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/q3kCk-mzCN/" class="post-tag">
+                                # 数据分析
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/7e6kC-aJtC/" class="post-tag">
+                                # 数据可视化
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/superset-xin-zeng-tu-biao-lei-xing/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/superset-xin-zeng-tu-biao-lei-xing.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/mongodb-bi-ji-3linux-ping-tai-an-zhuang/">
+                            <span class="post-title gt-c-content-color-first">MongoDB笔记-3（Linux平台安装）</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-08-08 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/wB-Z_qPbw/" class="post-tag">
+                                # 数据库
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/6MspOUXIkV/" class="post-tag">
+                                # mongoDB
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/4tMkwJQSJ2/" class="post-tag">
+                                # NoSQL
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/mongodb-bi-ji-3linux-ping-tai-an-zhuang/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/mongodb-bi-ji-3linux-ping-tai-an-zhuang.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/mongodb-bi-ji-2nosql/">
+                            <span class="post-title gt-c-content-color-first">MongoDB笔记-2（NoSQL）</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>NoSQL(NoSQL = Not Only SQL )，意即&quot;不仅仅是SQL&quot;。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-08-02 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/wB-Z_qPbw/" class="post-tag">
+                                # 数据库
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/6MspOUXIkV/" class="post-tag">
+                                # mongoDB
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/4tMkwJQSJ2/" class="post-tag">
+                                # NoSQL
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/mongodb-bi-ji-2nosql/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/mongodb-bi-ji-2nosql.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/mongodb-bi-ji-1jian-jie/">
+                            <span class="post-title gt-c-content-color-first">MongoDB笔记-1（简介）</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>MongoDB 是一个基于分布式文件存储的数据库，旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-08-02 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/wB-Z_qPbw/" class="post-tag">
+                                # 数据库
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/6MspOUXIkV/" class="post-tag">
+                                # mongoDB
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/4tMkwJQSJ2/" class="post-tag">
+                                # NoSQL
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/mongodb-bi-ji-1jian-jie/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/mongodb-bi-ji-1jian-jie.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/nxdev/">
+                            <span class="post-title gt-c-content-color-first">Nx:构建企业级Monorepo应用程序的新方法</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>现代Web开发工具。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-07-25 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/8-pCBu3Tk/" class="post-tag">
+                                # NX
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/zw8cBAsq1V/" class="post-tag">
+                                # 架构
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/nxdev/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/nxdev.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/apollo-client-16authentication/">
+                            <span class="post-title gt-c-content-color-first">Apollo Client - 16.Authentication</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>认证、除非您加载的所有数据都是完全公开的，否则您的应用程序应该拥有用户，帐户和权限系统。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-07-18 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/AmO1ThlSR/" class="post-tag">
+                                # Apollo Client
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/dW_UwyEf6P/" class="post-tag">
+                                # Graphql
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/apollo-client-16authentication/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/apollo-client-16authentication.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/apollo-client-query/">
+                            <span class="post-title gt-c-content-color-first">Apollo Client - 2.Query</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>学习如何使用 Query 组件获取数据</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-07-18 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/AmO1ThlSR/" class="post-tag">
+                                # Apollo Client
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/dW_UwyEf6P/" class="post-tag">
+                                # Graphql
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/apollo-client-query/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/apollo-client-query.png')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/gitlab-ci-qian-duan-chi-xu-ji-cheng/">
+                            <span class="post-title gt-c-content-color-first">Gitlab-CI前端持续集成</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>gitlab-ci 全称是 gitlab continuous integration，也就是基于gitlab的持续集成工具。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-07-18 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/qVOQexVL_Q/" class="post-tag">
+                                # 持续集成
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/amI4cgC9h/" class="post-tag">
+                                # Git
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/gitlab-ci-qian-duan-chi-xu-ji-cheng/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/gitlab-ci-qian-duan-chi-xu-ji-cheng.jpg')">
+                    </a>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://fanguyun214.github.io/post/qian-duan-ji-yu-ssh-de-zi-dong-bu-shu/">
+                            <span class="post-title gt-c-content-color-first">前端基于SSH的自动部署</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        <p>SSH是一种网络协议，用于计算机之间的加密登录。</p>
+
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2019-07-18 ·
+                        </time>
+                        
+                            <a href="https://fanguyun214.github.io/tag/9viLSJBp_/" class="post-tag">
+                                # SSH
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/qVOQexVL_Q/" class="post-tag">
+                                # 持续集成
+                            </a>
+                        
+                            <a href="https://fanguyun214.github.io/tag/amI4cgC9h/" class="post-tag">
+                                # Git
+                            </a>
+                        
+                    </div>
+                </div>
+                
+                    <a href="https://fanguyun214.github.io/post/qian-duan-ji-yu-ssh-de-zi-dong-bu-shu/" class="post-feature-image"
+                       style="background-image: url('https://fanguyun214.github.io/post-images/qian-duan-ji-yu-ssh-de-zi-dong-bu-shu.jpg')">
+                    </a>
+                
+            </div>
+        
+    </div>
 </div>
 
-    
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="http://fanguyun214.github.io/post/apollo-client-16authentication">
-        <h2 class="post-title">Apollo Client - 16.Authentication</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-07-18
-        </span>
-        <span>
-          2 min read
-        </span>
-        
-          <a href="http://fanguyun214.github.io/tag/AmO1ThlSR" class="post-tag">
-            # Apollo Client
-          </a>
-        
-          <a href="http://fanguyun214.github.io/tag/dW_UwyEf6P" class="post-tag">
-            # Graphql
-          </a>
-        
-      </div>
-      
-        <a href="http://fanguyun214.github.io/post/apollo-client-16authentication" class="post-feature-image" style="background-image: url('http://fanguyun214.github.io/post-images/apollo-client-16authentication.png')">
-        </a>
-      
-      <div class="post-abstract">
-        <p>认证、除非您加载的所有数据都是完全公开的，否则您的应用程序应该拥有用户，帐户和权限系统。</p>
-
-      </di>
-    </article>
-  
-    <article class="post">
-      <a href="http://fanguyun214.github.io/post/apollo-client-query">
-        <h2 class="post-title">Apollo Client - 2.Query</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-07-18
-        </span>
-        <span>
-          6 min read
-        </span>
-        
-          <a href="http://fanguyun214.github.io/tag/AmO1ThlSR" class="post-tag">
-            # Apollo Client
-          </a>
-        
-          <a href="http://fanguyun214.github.io/tag/dW_UwyEf6P" class="post-tag">
-            # Graphql
-          </a>
-        
-      </div>
-      
-        <a href="http://fanguyun214.github.io/post/apollo-client-query" class="post-feature-image" style="background-image: url('http://fanguyun214.github.io/post-images/apollo-client-query.png')">
-        </a>
-      
-      <div class="post-abstract">
-        <p>学习如何使用 Query 组件获取数据</p>
-
-      </di>
-    </article>
-  
-    <article class="post">
-      <a href="http://fanguyun214.github.io/post/gitlab-ci-qian-duan-chi-xu-ji-cheng">
-        <h2 class="post-title">Gitlab-CI前端持续集成</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-07-18
-        </span>
-        <span>
-          2 min read
-        </span>
-        
-          <a href="http://fanguyun214.github.io/tag/qVOQexVL_Q" class="post-tag">
-            # 持续集成
-          </a>
-        
-          <a href="http://fanguyun214.github.io/tag/amI4cgC9h" class="post-tag">
-            # Git
-          </a>
-        
-      </div>
-      
-        <a href="http://fanguyun214.github.io/post/gitlab-ci-qian-duan-chi-xu-ji-cheng" class="post-feature-image" style="background-image: url('http://fanguyun214.github.io/post-images/gitlab-ci-qian-duan-chi-xu-ji-cheng.jpg')">
-        </a>
-      
-      <div class="post-abstract">
-        <p>gitlab-ci 全称是 gitlab continuous integration，也就是基于gitlab的持续集成工具。</p>
-
-      </di>
-    </article>
-  
-    <article class="post">
-      <a href="http://fanguyun214.github.io/post/qian-duan-ji-yu-ssh-de-zi-dong-bu-shu">
-        <h2 class="post-title">前端基于SSH的自动部署</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-07-18
-        </span>
-        <span>
-          3 min read
-        </span>
-        
-          <a href="http://fanguyun214.github.io/tag/9viLSJBp_" class="post-tag">
-            # SSH
-          </a>
-        
-          <a href="http://fanguyun214.github.io/tag/qVOQexVL_Q" class="post-tag">
-            # 持续集成
-          </a>
-        
-          <a href="http://fanguyun214.github.io/tag/amI4cgC9h" class="post-tag">
-            # Git
-          </a>
-        
-      </div>
-      
-        <a href="http://fanguyun214.github.io/post/qian-duan-ji-yu-ssh-de-zi-dong-bu-shu" class="post-feature-image" style="background-image: url('http://fanguyun214.github.io/post-images/qian-duan-ji-yu-ssh-de-zi-dong-bu-shu.jpg')">
-        </a>
-      
-      <div class="post-abstract">
-        <p>SSH是一种网络协议，用于计算机之间的加密登录。</p>
-
-      </di>
-    </article>
-  
-    <article class="post">
-      <a href="http://fanguyun214.github.io/post/shi-yong-commitizen-de-zheng-que-zi-shi">
-        <h2 class="post-title">使用commitizen的正确姿势 </h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-07-18
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="http://fanguyun214.github.io/tag/amI4cgC9h" class="post-tag">
-            # Git
-          </a>
-        
-      </div>
-      
-        <a href="http://fanguyun214.github.io/post/shi-yong-commitizen-de-zheng-que-zi-shi" class="post-feature-image" style="background-image: url('http://fanguyun214.github.io/post-images/shi-yong-commitizen-de-zheng-que-zi-shi.jpg')">
-        </a>
-      
-      <div class="post-abstract">
-        <p>我们在每次提交代码时，都需要编写Commit Message，否则是不允许提交的。</p>
-
-      </di>
-    </article>
-  
-    <article class="post">
-      <a href="http://fanguyun214.github.io/post/redux-jian-jie">
-        <h2 class="post-title">Redux简介</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-07-18
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="http://fanguyun214.github.io/tag/EESdm6cU0" class="post-tag">
-            # Redux
-          </a>
-        
-      </div>
-      
-        <a href="http://fanguyun214.github.io/post/redux-jian-jie" class="post-feature-image" style="background-image: url('http://fanguyun214.github.io/post-images/redux-jian-jie.jpg')">
-        </a>
-      
-      <div class="post-abstract">
-        <p>redux 是一个状态管理器，redux 和 react 没有关系，redux 可以用在任何框架中，忘掉 react。</p>
-
-      </di>
-    </article>
-  
-</div>
-
-    
         <div class="pagination-container">
-  
-  
+    
+    
+        <a href="https://fanguyun214.github.io/page/2" class="prev-page gt-a-link">下一页</a>
+    
 </div>
 
-    
-        <div class="site-footer">
-  Powered by Jasonfan & Grider  🖥 | 
-  <a class="rss" href="http://fanguyun214.github.io/atom.xml" target="_blank">RSS</a>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">⌨️ 格物、致知、诚意  🎉<br/>
+⌨️ 正心、修身、齐家  🎉</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by Jasonfan & Grider  🖥
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://fanguyun214.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
 </div>
 
 <script>
   hljs.initHighlightingOnLoad()
-
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
-
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
-
 </script>
 
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>

@@ -1,0 +1,528 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>公众号&amp;H5微信支付接入 | Jasonfan Blog</title>
+
+<link rel="shortcut icon" href="https://fanguyun214.github.io/favicon.ico?v=1616378338621">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fanguyun214.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Jasonfan Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1616378338621"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    公众号&amp;H5微信支付接入
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-12-03 ·
+                    </time>
+                    
+                        <a href="https://fanguyun214.github.io/tag/8bpYHQpEF/" class="post-tags">
+                            # 微信
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/VJa6GL78FP/" class="post-tags">
+                            # 公众号
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/xUxaLbu8tX/" class="post-tags">
+                            # 支付
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/OroaBJumjK/" class="post-tags">
+                            # H5
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>商户在微信公众平台或开放平台提交微信支付申请，微信支付工作人员审核资料无误后开通相应的微信支付权限。微信支付申请审核通过后，商户在申请资料填写的邮箱中收取到由微信支付小助手发送的邮件，此邮件包含开发时需要使用的支付账户信息。</p>
+<!-- more -->
+<p><a href="https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=3_1">支付账户说明</a></p>
+<h3 id="支付接入流程">支付接入流程</h3>
+<figure data-type="image" tabindex="1"><img src="https://fanguyun214.github.io/post-images/1578881317795.png" alt="" loading="lazy"></figure>
+<h3 id="支付场景">支付场景</h3>
+<h4 id="jsapi公众号支付">JSAPI（公众号支付）</h4>
+<p>商户已有H5网站，用户通过消息或扫描二维码在微信内打开网页时，可以调用微信支付完成下单购买的流程<br>
+只能从微信浏览器中发起<br>
+可用微信浏览器内置方法，不需要引入微信jssdk<br>
+<a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_1">官方文档</a></p>
+<h4 id="h5支付">H5支付</h4>
+<p>H5支付是指商户在微信客户端外的移动端网页展示商品或服务，用户在前述页面确认使用微信支付时，<br>
+商户发起本服务呼起微信客户端进行支付。主要用于触屏版的手机浏览器请求微信支付的场景。可以方便的从外部浏览器唤起微信支付<br>
+支付配置：登录商户平台--&gt;产品中心--&gt;我的产品--&gt;支付产品→H5支付<br>
+用户从非微信浏览器进入发起支付，不能从微信客户端调起<br>
+要求商户已有H5商城网站，并且已经过ICP备案<br>
+<a href="https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_1">官方文档</a></p>
+<hr>
+<h3 id="jsapi支付公众号支付">JSAPI支付（公众号支付）</h3>
+<p><strong>步骤一：添加开发者，微信授权登录配置</strong></p>
+<p>添加开发者<br>
+公众号登录管理后台，启用开发者中心，在开发者工具——web 开发者工具页面，向开发者微信号发送绑定邀请：<br>
+<img src="https://fanguyun214.github.io/post-images/1575341547646.jpeg" alt="" loading="lazy"></p>
+<p>微信授权登录<br>
+开发者需要先到公众平台官网中的“开发 - 接口权限 - 网页服务 - 网页帐号 - 网页授权获取用户基本信息”的配置选项中，修改授权回调域名。这里填写的是域名（是一个字符串），而不是URL，因此请勿加 http:// 等协议头，授权回调域名配置规范为全域名，比如需要网页授权的域名 为：www.qq.com，配置以后此域名下面的页面http://www.qq.com/music.html 、 http://www.qq.com/login.html 都可以进行OAuth2.0鉴权。但http://pay.qq.com 、 http://music.qq.com 、 http://qq.com无法进行OAuth2.0鉴权。回调域名最多添加两个，需上传指定文件至回调域名根目录：<br>
+<img src="https://fanguyun214.github.io/post-images/1575341597303.png" alt="" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>scope参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>snsapi_base</td>
+<td>静默授权，获取openid，直接进入业务页面，用户无感知</td>
+</tr>
+<tr>
+<td>snsapi_userinfo</td>
+<td>需要用户手动同意，获取用户基本信息，对于已关注公众号的用户，如果用户从公众号的会话或者自定义菜单进入本公众号的网页授权页，即使是scope为snsapi_userinfo，也是静默授权，用户无感知</td>
+</tr>
+</tbody>
+</table>
+<p>具体而言，网页授权流程分为四步：</p>
+<p>1、引导用户进入授权页面同意授权，获取code，接口示例:</p>
+<pre><code>https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect
+</code></pre>
+<p>2、通过code换取网页授权access_token（与基础支持中的access_token不同）</p>
+<p>3、如果需要，开发者可以刷新网页授权access_token，避免过期</p>
+<p>4、通过网页授权access_token和openid获取用户基本信息（支持UnionID机制）</p>
+<p>前端授权获取code后通过code调用后端接口获取用户信息，需要提供AppId，AppSecret</p>
+<p><a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信官方文档</a></p>
+<p><strong>步骤二：设置支付域名与支付回调目录。</strong></p>
+<p>在微信商户平台（pay.weixin.qq.com）设置您的JSAPI支付支付目录，设置路径：商户平台--&gt;产品中心→开发配置，JSAPI支付在请求支付的时候会校验请求来源是否有在商户平台做了配置，所以必须确保支付目录已经正确的被配置，否则将验证失败，请求支付不成功。</p>
+<p>支付目录配置<br>
+<img src="https://fanguyun214.github.io/post-images/1575341966467.png" alt="" loading="lazy"><br>
+请求目录与设置目录必须一致，否则验证失败，支付不成功。</p>
+<p><strong>步骤三：微信内调用支付可用微信浏览器内置方法（不需要引入微信jssdk）</strong>：</p>
+<pre><code>if (typeof WeixinJSBridge === 'undefined') {
+    if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+} else {
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',
+        {
+        appId: newLevelOrder.appId,
+        timeStamp: newLevelOrder.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+        nonceStr: newLevelOrder.nonceStr, // 支付签名随机串，不长于 32 位
+        package: `prepay_id=${newLevelOrder.prePayId}`, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+        signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+        paySign: newLevelOrder.paySign, // 支付签名
+        },
+        function(res: any) {
+        if (res.err_msg === 'get_brand_wcpay_request:ok') {
+            // 使用以上方式判断前端返回,微信团队郑重提示：
+            //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+            // Toast.info('支付成功', 1, () =&gt; {});
+            router.push('/package-buy/pay-success');
+        } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+            Toast.info('取消支付', 1);
+        } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+            // Toast.info('支付失败', 1);
+            router.push(
+            `/package-buy/pay-fail?name=${query.name}&amp;price=${query.h5Price}&amp;packid=${query.id}&amp;type=${query.type}`,
+            );
+        }
+        },
+    );
+}
+</code></pre>
+<p>网页端接口请求参数列表（参数需要重新进行签名计算，参与签名的参数为：appId、timeStamp、nonceStr、package、signType，参数区分大小写与顺序。）<br>
+调起支付请求参数由后端server调用统一下单接口返回，需提供AppId等。</p>
+<p><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=20_1">微信支付接口签名校验工具</a>，此工具旨在帮助开发者检测调用【微信支付接口API】时发送的请求参数中生成的签名是否正确。<br>
+本地开发使用开发者工具，可用https://ngrok.com/做内网穿透，实现本地授权回调，支付调起需真机环境<br>
+<a href="https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=2_2">微信平台与名词说明</a></p>
+<hr>
+<h3 id="h5支付接入">H5支付接入</h3>
+<p>微信平台申请：登录微信商户平台--&gt;产品中心--&gt;我的产品--&gt;支付产品--&gt; H5支付<br>
+<img src="https://fanguyun214.github.io/post-images/1575342323250.jpg" alt="" loading="lazy"><br>
+申请流程：选择 H5支付--&gt;填写 H5 支付产品设置<br>
+<img src="https://fanguyun214.github.io/post-images/1575342372576.jpg" alt="" loading="lazy"><br>
+1）写入对应的支付域名（最多可添加5个），域名必须通过 ICP 备案；当域名备案主体与公司名称不一致，需要上传授权函（设置页面不支持直接上传）；上传方式：账户中心--&gt;企业账号--&gt;公司网站，输入网址，上传授权函（审核3-7个工作日）<br>
+2）填写售卖场景/使用产品<br>
+3）输入产品对应网站域名<br>
+点击提交申请，页面提示审核时间为3-5个工作日（审核结果会反馈在消息中心）</p>
+<p><strong>流程：</strong><br>
+1、用户在商户侧完成下单，使用微信支付进行支付<br>
+2、由商户后台向微信支付发起下单请求（调用统一下单接口）注：交易类型trade_type=MWEB<br>
+3、统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”），商户通过mweb_url调起微信支付中间页<br>
+4、中间页进行H5权限的校验，安全性检查（此处常见错误请见下文）<br>
+5、如支付成功，商户后台会接收到微信侧的异步通知<br>
+6、用户在微信支付收银台完成支付或取消支付,返回商户页面（默认为返回支付发起页面）<br>
+7、商户在展示页面，引导用户主动发起支付结果的查询<br>
+8,9、商户后台判断是否接到收微信侧的支付结果通知，如没有，后台调用我们的订单查询接口确认订单状态<br>
+10、展示最终的订单支付结果给用户</p>
+<hr>
+<h3 id="使用js-sdk实现公众号支付">使用JS-SDK实现公众号支付</h3>
+<p><strong>步骤一： 在公众号后台配置相关参数“网页授权域名”、“JS接口安全域名”，在商户后台配置“支付授权目录”。</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>配置地址</th>
+<th>意义</th>
+<th>可配置个数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网页授权域名</td>
+<td>公众号后台-公众号设置-功能设置</td>
+<td>在获取code的接口中配置的redirect_uri必须在这个域名下</td>
+<td>2个</td>
+</tr>
+<tr>
+<td>JS接口安全域名</td>
+<td>公众号后台-公众号设置-功能设置</td>
+<td>调用微信开放的JS接口的页面必须在此域名下</td>
+<td>3个</td>
+</tr>
+<tr>
+<td>支付授权目录</td>
+<td>产品中心-开发配置-支付授权目录</td>
+<td>调起微信支付的页面所在的目录</td>
+<td>5个</td>
+</tr>
+</tbody>
+</table>
+<p><strong>步骤二：在需要调用JS接口的页面引入JS-SDK</strong>: <script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>。</p>
+<p><strong>步骤三：通过config接口注入权限验证配置。</strong></p>
+<p>所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用（同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用，目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复）。</p>
+<pre><code>wx.config({
+    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '', // 必填，公众号的唯一标识
+    timestamp: , // 必填，生成签名的时间戳
+    nonceStr: '', // 必填，生成签名的随机串
+    signature: '',// 必填，签名
+    jsApiList: [] // 必填，需要使用的JS接口列表
+});
+</code></pre>
+<p><strong>步骤四：通过ready接口处理成功验证、通过error接口处理失败验证。</strong></p>
+<pre><code>wx.ready(function () {
+    wx.checkJsApi({
+        jsApiList: ['chooseWXPay'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+        success: function () {
+        // 以键值对的形式返回，可用的api值true，不可用为false
+        // 如：{&quot;checkResult&quot;:{&quot;chooseImage&quot;:true},&quot;errMsg&quot;:&quot;checkJsApi:ok&quot;}
+        }
+    });
+});
+</code></pre>
+<p>config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</p>
+<pre><code>wx.error(function(res){
+    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开         config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+});
+</code></pre>
+<p><strong>步骤五：发起一个微信支付请求。</strong></p>
+<pre><code>wx.chooseWXPay({
+  timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+  nonceStr: '', // 支付签名随机串，不长于 32 位
+  package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+  signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+  paySign: '', // 支付签名
+  success: function (res) {
+    // 支付成功后的回调函数
+  }
+});
+</code></pre>
+<p>参数通过统一下单接口拿到，paySign 采用统一的微信支付 Sign 签名生成方法，注意这里 appId 也要参与签名，appId 与 config 中传入的 appId 一致，即最后参与签名的参数有appId, timeStamp, nonceStr, package, signType。</p>
+<p><a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html">JS-SDK使用文档</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://fanguyun214.github.io/post/superset-xin-zeng-tu-biao-lei-xing/" class="post-title gt-a-link">
+                    Superset新增图表类型
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '94fca913faabe61337e0',
+    clientSecret: '9ee8a359f64b424f77e6fba28063b59788b92af1',
+    repo: 'fanguyun214.github.io',
+    owner: 'fanguyun214',
+    admin: ['fanguyun214'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">⌨️ 格物、致知、诚意  🎉<br/>
+⌨️ 正心、修身、齐家  🎉</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by Jasonfan & Grider  🖥
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://fanguyun214.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

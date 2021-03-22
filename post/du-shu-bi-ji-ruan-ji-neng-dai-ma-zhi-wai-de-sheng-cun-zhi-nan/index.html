@@ -1,0 +1,432 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>【读书笔记】软技能-代码之外的生存指南 | Jasonfan Blog</title>
+
+<link rel="shortcut icon" href="https://fanguyun214.github.io/favicon.ico?v=1616378338621">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fanguyun214.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Jasonfan Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1616378338621"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    【读书笔记】软技能-代码之外的生存指南
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-02-24 ·
+                    </time>
+                    
+                        <a href="https://fanguyun214.github.io/tag/KfUu50R9U/" class="post-tags">
+                            # 读书
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/ERZQWgDhnK/" class="post-tags">
+                            # 思考
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/ieLVC6BDJo/" class="post-tags">
+                            # 职场
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="关于本书">关于本书</h2>
+<p>书名：软技能<br>
+作者：John Sonmez<br>
+出版社：人民邮电出版社<br>
+阅读日期： 2016年07月<br>
+豆瓣评分：8.9<br>
+我的评分：☆☆☆☆</p>
+<h2 id="内容简介">内容简介</h2>
+<p>这是一本真正从“人”（而非技术也非管理）的角度关注软件开发人员自身发展的书。书中论述的内容既涉及生活习惯，又包括思维方式，凸显技术中“人”的因素，全面讲解软件行业从业人员所需知道的所有“软技能”。本书聚焦于软件开发人员生活的方方面面，从揭秘面试的流程到精耕细作出一份杀手级简历，从创建大受欢迎的博客到打造你，从提高自己工作效率到与如何与“拖延症”做斗争，甚至包括如何投资不动产，如何关注自己的健康。本书共分为职业篇、自我营销篇、学习篇、生产力篇、理财篇、健身篇、精神篇等七篇，概括了软件行业从业人员所需的“软技能”。通过阅读本书，软件工程人员、编程人员和其他技术人员能够积极思考自己的职业生涯，丰富自己的生活，让自己更接近成功。</p>
+<h2 id="作者简介">作者简介</h2>
+<p>John Z. Sonmez是“Simple Programmer”网站的创始人，他不辞辛劳地追求着“将复杂问题转化为简单解决方案”的梦想。他为在线培训机构Pluralsight开发了50多门在线课程，涉及iOS、Android、.NET、Java和游戏开发等多个主题。<br>
+他是“Get Up and CODE”播客的主持人，在这里他讨论程序员健身；他还是“Entreprogrammers”播客的主持人，在这里他和其他三位开发者/企业家分享他们构建在线业务的真实故事。<br>
+John是软件开发人员的人生导师，他帮助软件工程师、程序员和其他专业技术人员推动事业进步，过上更充实的生活。他通过“化繁为简”的方法，赋予他们达成自身目标的力量。</p>
+<h2 id="书摘">书摘</h2>
+<p>• 工作是公司的，职业生涯是自己的<br>
+• 绝不要做他人都在做的，像经营企业一样经营自己<br>
+• 设定目标, 驱动小目标向着大目标前进<br>
+• 人际交往能力，学会如何与人打交道 - 认可他人、永远不要批评、换位思考、避开地雷人<br>
+• 破解面试之道 - 博客，社交，扩大影响力，推销自己<br>
+• 就业选择- 雇员、咨询师、创业者<br>
+• 你是哪类开发人员 - 专业化（多博专精）<br>
+• 攀登晋升阶梯 - 承担责任、保证曝光度、自学、分享、<br>
+• 成为专业人士 - 严肃对待，保持专业习惯、追求品质、完善自我、坚守正道<br>
+• 赢得自由(如何辞职) - 开源节流、以副业的方式创业<br>
+• 成为自有职业者 - 获取客户，时薪+额外费用，应该为全职时薪2倍<br>
+• 开始创业 - 获得投资、谨慎出让股权<br>
+• 远程工作的生存策略 - 时间管理、自我激励、孤独感<br>
+• 假装自己能成功 - 有目的的将自己置与困境、破釜沉舟的勇气、自信而不自负、拥抱新问题<br>
+• 单调乏味的简历 - 雇一个简历写手、招聘者意见<br>
+• 请勿陷入对技术的狂热之中 - 保持开放心态<br>
+• 码农的营销课 - 提供自我价值、包装想法比想法本身更重要、塑造好自己形象<br>
+• 打造引人注目的品牌 - 品牌核心信息、视觉符号、一致性、曝光率<br>
+• 创建大获成功的博客 - 定期更新、持之以恒<br>
+• 为他人增加价值 - 帮别人解决问题<br>
+• 擅于运用社交媒体 - 专业化<br>
+• 演讲、培训和报告 - 做说话的极客、从团队分享开始、培训<br>
+• 著书立说，吸引追随者<br>
+• 百折不挠、越挫越勇 - 别太在意别人想法和眼光、别害怕自己出丑、勇敢的走出去<br>
+• 学习怎样学习、如何自我教育 - 纸上得来终觉浅、最好的办法就是付诸于实践，立即参与<br>
+• 十步学习法<br>
+1、了解全部 -&gt; 2、确定范围 -&gt; 3、定义目标 -&gt; 4、寻找资源 -&gt; 5、创建学习计划 -&gt; 6、筛选资源 -&gt; 7、开始学习，浅尝截止 -&gt; 8、动手操作，边玩边学 -&gt; 9、全面掌握，学以致用 -&gt; 10、乐为人师，融会贯通<br>
+• 十步学习法 - 第一步到第六步这些步骤只做一次(OKR)<br>
+• 十步学习法 - 第七步到第十步循环往复<br>
+• 寻找导师 -  找到你的尤达<br>
+• 开山收徒 - 成为尤达一样的大师<br>
+• 传道授业 - 若要学知识，必得为人师、知其然知其所以然、以谦虚的视角观察问题，以权威的视角诠释问题、心态谦卑，信心满满<br>
+• 你学要一个学位吗、还是可以对此忽略 - 学位是有优势的<br>
+• 发现自己的只是短板<br>
+• 一切始于专注 - 不要频繁切换任务，几种精力处理一件事情，将任务按照分类组合起来，高效处理<br>
+• 生产力提升计划 - 番茄工作法、看法计划。季度计划<br>
+• 番茄工作法 - 规划，追踪，记录，处理，以及可视化<br>
+• 定额工作法 - 承诺是完成定额工作法的核心<br>
+• 对自己负责 - 高效自我驱动<br>
+• 要不要多任务并行 - 批量处理任务如邮件，效率更高，<br>
+• 职业倦怠：我已找到解药 - 咬紧牙冠，经历痛苦、穿过倦怠的那堵墙，找到墙后的金子<br>
+• 时间是怎样被浪费掉的 - 戒掉电视、浪费时间、潜移默化思想、毫无意义；控制社交媒体<br>
+• 形成惯例的重要性<br>
+• 培养习惯、刷新你的代码 -找到坏习惯、改为好习惯、试着从小事做起<br>
+• 分解任务、如何吃掉一头大象 - 任务越大越难明确定义、分解任务、精确定义、减少完成难度<br>
+• 努力工作的价值、你为什么总是逃避努力工作 - 努力工作是成功的必要条件、工作的时候要既聪明又努力并需要毅力<br>
+• 任何行动都比不采取行动好 - 都没采取行动，怎么能指望有事发生那？跑起来的汽车更容易转向<br>
+• 怎样支配你的薪水 - 拒绝短期思维、长远打算、开源节流、不把薪水浪费在负债上、学会理财投资<br>
+• 怎样进行薪酬谈判 - 打造个人品牌、获得工作的方式、先出价输、多拿几个offer<br>
+• 期权：所有乐趣之所在<br>
+• 房地产投资面面观 - 低风险，高负债、房地产是很好的投资，以租养贷<br>
+• 你真的了解自己的退休计划吗 - 开源节流、用来投资、以资本获利，养下蛋公鸡、真正财务自由的方法用钱生钱<br>
+• 债务的危害 - 先还高利率债务，再存钱、存款利率低于贷款利率<br>
+• 我是如何做到33岁退休的 - 财务自由、在不想工作的时候不工作<br>
+• 为什么要破解自己的健康密码 - 健身要自己更有魅力、自信心<br>
+• 设定你的健身目标 - 把健身作为优先计划<br>
+• 热力学、热量和你 - 热量影响体重<br>
+• 动力：让你的屁股离开椅子<br>
+• 如何增长肌肉 - 合理膳食、摄入蛋白质<br>
+• 启动跑步程序<br>
+• 站立式办公及其他窍门<br>
+• 高科技健身装备：极客现身<br>
+• 心灵是如何影响身体的 - 无形控制有形、心态很重要<br>
+• 拥有正确的心态：重新启动 - 保持积极的心态、心态影响做事效率、劳逸结合才能保持良好的心态<br>
+• 构建一个积极的自我形象，规划你的大脑 - 不要被大脑中自我想象束缚、假装自己能成功，打破自我潜意识、把自己能转变成任何想要的形象<br>
+• 积极面对失败 - 别把失败看的太重、失败不是终点、你是否要为自己最终拥有的东西而战斗、把失败看做经验，而不是全盘否定、学会拥抱失败、接受失败、拥抱失败、不要停止那些有挑战或有危险的事情、走出去有目的的把自己放在有挑战的环境<br>
+• 结束语 -  塑造自己的自我价值、生活原本比朝9晚5的生活更精彩<br>
+• 如果你能写代码，你就能理解金融 - 货币是价值的体现，货币的总量决定货币价值；通货膨胀：货币价值变小，钱贬值，物价上升，减轻债务；通货紧缩：货币价值变大，钱升值，物价降低，增加债务；中央银行控制货币总量，抑制通胀或者通缩，抑制经济过热或过冷，控制法定存款准备金；普通银行靠把存款贷款给别人，赚取利率差价，银行可以互相拆借；金融体系的基础，风险、收益、流动性；<br>
+• 股市是如何运作的：系统的游戏规则 - 只是节俭是不够的，要让钱动起来，让钱生钱、投资；股市存在的目的为了让投资者更加方便的买入卖出股票；企业上市发行股票是为了筹集资金；交易量决定股票的流动性；低买高卖原则；做多：就是你看好大米会涨价，买入或借入大米囤起来，等大米价格上涨了就卖出去赚差价；做空：就是你看好大米会降价，跟大米老板借大米，然后卖出去换成钱，等大米降价再用钱买大米还给大米老板，赚取差价<br>
+• 垃圾进来垃圾出去：饮食和营养基础知识 - 碳水化合物、蛋白质、脂肪构成了我们摄入食物的主要组成部分；其他必须维生素；纤维；矿物质；水；深度加工的食品含有更多的糖分和防腐剂；清楚自己的饮食结构；<br>
+• 如何吃出健康来：披萨并不是一个食物组 - 控制热量总数；控制糖量摄入；</p>
+<h2 id="推荐书单">推荐书单</h2>
+<p>• 习惯的力量<br>
+• 精益创业<br>
+• 驱动力<br>
+• 积极思考就是力量<br>
+• The War of Art<br>
+• 人性的弱点<br>
+• 思考致富<br>
+• 心理控制方法<br>
+• 积极思考就是力量<br>
+• 阿特拉耸耸肩</p>
+<h3 id="软件开发类书单">软件开发类书单</h3>
+<p>• 代码大全<br>
+• 代码整洁之道<br>
+• Head First设计模式</p>
+<h3 id="投资类书单">投资类书单</h3>
+<p>• The Millionaire Real Estate Investor<br>
+• 穷爸爸富爸爸<br>
+• No-Hype Options Trading:Myths,Realities, and Straategies That Really Work</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://fanguyun214.github.io/post/dockerandk8s-ru-men/" class="post-title gt-a-link">
+                    Docker&amp;k8s入门
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '94fca913faabe61337e0',
+    clientSecret: '9ee8a359f64b424f77e6fba28063b59788b92af1',
+    repo: 'fanguyun214.github.io',
+    owner: 'fanguyun214',
+    admin: ['fanguyun214'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">⌨️ 格物、致知、诚意  🎉<br/>
+⌨️ 正心、修身、齐家  🎉</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by Jasonfan & Grider  🖥
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://fanguyun214.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

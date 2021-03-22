@@ -1,0 +1,598 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>前端跨平台调试 | Jasonfan Blog</title>
+
+<link rel="shortcut icon" href="https://fanguyun214.github.io/favicon.ico?v=1616378338621">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fanguyun214.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Jasonfan Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1616378338621"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    前端跨平台调试
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-04-27 ·
+                    </time>
+                    
+                        <a href="https://fanguyun214.github.io/tag/xsC8BvdbF/" class="post-tags">
+                            # Debug
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/JNIiV17vx2/" class="post-tags">
+                            # 移动端
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/LJZZCe_xIw/" class="post-tags">
+                            # 调试
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>如何调试移动端页面一直是比较头疼的事。与桌面浏览器不同，当H5页面嵌入到app后，无法很方便地按出F12来查看元素，或者断点调试js。另外，移动端设备差异化非常严重，iphone 6 到 iphone 11，android 更是不用多说。</p>
+<!-- more -->
+<h3 id="移动端调试痛点">移动端调试痛点</h3>
+<p>设备差异、环境差异、系统差异。PC端浏览器开发者工具，VS Debug。移动端，我的手机是好的，测试小姐姐说她的手机有bug。微信微博等第三方环境，怎么调试？</p>
+<h3 id="常用调试方法">常用调试方法</h3>
+<h4 id="charlesfiddler">Charles/Fiddler</h4>
+<p>抓包工具，可以截取包括 <code>https</code> 在内的各种网络请求并方便的查看具体信息。通过配置 <code>WIFI</code> 代理，也可以拦截手机发出的请求，在一定程度上帮助 <code>debug</code>。软件付费，而且它定位不了 <code>js</code> 的报错，所以只能作为一个辅助工具。</p>
+<h4 id="android-chrome浏览器">Android + Chrome浏览器</h4>
+<p>第一步：打开 <code>Android</code> 手机 <code>设置</code> &gt; <code>开发者选项</code> &gt; <code>USB调试</code>。</p>
+<p>第二步：通过数据线连接你的电脑和 <code>Android</code> 手机，允许USB调试。</p>
+<p>第三步：Android<code>手机下载一个手机版的</code>Chrome浏览器，并在手机上的 <code>Chrome浏览器</code> 中打开你需要调试的页面。</p>
+<p>第四步：打开电脑上的 <code>Chrome浏览器</code>，输入<a href="chrome://inspect/#devices">chrome://inspect/#devices</a></p>
+<h4 id="maciossafari">Mac+IOS+Safari</h4>
+<p>第一步：打开苹果手机 <code>设置</code> &gt; <code>Safari浏览器</code> &gt; <code>高级</code> &gt; <code>Web检查器</code></p>
+<p>第二步： 打开 <code>Mac</code> 上的 <code>Safari浏览器</code> &gt; <code>偏好设置</code> &gt; <code>高级</code> &gt; <code>在菜单栏中显示“开发”菜单</code></p>
+<p>第三步： 用数据线连接你的 <code>Mac</code> 电脑和苹果手机，并选择信任设备。然后在手机的 <code>Safari浏览器</code> 中打开你需要调试的页面，然后在电脑Safari中打开调试页面，菜单 &gt; 开发 &gt;  设备名。选择打开的页面。</p>
+<h4 id="vconsole"><a href="https://github.com/Tencent/vConsole">vConsole</a></h4>
+<p>腾讯出品的 Web 调试面板。<code>vConsole</code> 会在你网页中加一个悬浮的小按钮，可以点击它来打开关闭调试面板，并查看 <code>DOM</code>、<code>Console</code>、<code>Network</code>和 <code>本地存储</code> 等信息。基本可以满足普通前端开发的需求。使用方法也很简单，通过<code>npm</code>安装或者直接在需要的页面引入 <code>js文件</code> ，然后 <code>new VConsole()</code> 就可以了。</p>
+<h4 id="eruda"><a href="https://github.com/liriliri/eruda">Eruda</a></h4>
+<p>Eruda 是一个专为手机网页前端设计的调试面板，类似 DevTools 的迷你版，其主要功能包括：捕获 console 日志、检查元素状态、捕获XHR请求、显示本地存储和 Cookie 信息等等。</p>
+<h4 id="weiner"><a href="https://github.com/tvganesh/weiner">weiner</a></h4>
+<p>weinre是一款很不错的网页检查工具，可以通过在本地启动一个 <code>weinre</code> 服务，并向手机网页嵌入一段 <code>js</code> 脚本来实现和电脑的通信，已达到类似浏览器开发工具那样的的调试效果，它的操作界面和 <code>vConsole</code> 差不多，主要包括查看 <code>DOM</code>、<code>Console</code>、<code>Network</code> 等，只不过这一切是在电脑上操作，而不是在手机上。</p>
+<h3 id="常见调试场景">常见调试场景</h3>
+<ol>
+<li>
+<p>本地开发host映射，如微信，微博授权，支付域名固定</p>
+</li>
+<li>
+<p>独立H5页面真机调试</p>
+</li>
+<li>
+<p>嵌入第三方调试</p>
+</li>
+<li>
+<p>特定第三方环境调试</p>
+</li>
+<li>
+<p>线上环境调试</p>
+</li>
+</ol>
+<h3 id="调试工具推荐">调试工具推荐</h3>
+<p>whistle是基于Node实现的跨平台web调试代理工具，主要用于查看、修改HTTP、HTTPS、Websocket的请求/响应，也可以作为HTTP代理服务器使用，whistle采用的是类似配置系统hosts的方式，一切操作都可以通过配置实现，支持域名、路径、正则表达式、通配符、通配路径等多种匹配方式，且可以通过Node模块扩展功能。</p>
+<p>官方文档：<a href="http://wproxy.org/whistle/">wproxy.org/whistle/</a></p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/04/27/bYWUTVt5Zdv9ceS.png" alt="基本功能" loading="lazy"></figure>
+<h4 id="安装使用">安装使用</h4>
+<ul>
+<li>
+<p>安装</p>
+<pre><code class="language-sh">npm install -g whistle
+</code></pre>
+</li>
+<li>
+<p>命令</p>
+<pre><code>w2 help
+
+  Usage: whistle &lt;command&gt; [options]
+
+  Commands:
+
+  status              Show the running status of whistle
+  use/add [filepath]  Set rules from a specified js file (.whistle.js by default)
+  run                 Start a front service
+  start               Start a background service
+  stop                Stop current background service
+  restart             Restart current background service
+  help                Display help information
+</code></pre>
+</li>
+<li>
+<p>使用</p>
+<pre><code>// 启动
+w2 start
+// 重启
+w2 stop
+// 停止 
+w2 stop
+</code></pre>
+</li>
+<li>
+<p>设置代理</p>
+<p>1、全局代理</p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2020/04/27/aDqFRKvEsuLzfxn.jpg" alt="img" loading="lazy"></figure>
+<p>2、浏览器代理</p>
+<p>安装浏览器插件，如Chrome： <a href="https://chrome.google.com/webstore/detail/padekgcemlokbadohgkifijomclgjgif">SwitchyOmega</a></p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2020/04/27/2SLrqlR49Dd3AnO.jpg" alt="img" loading="lazy"></figure>
+<p>3、移动端设置代理</p>
+<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2020/04/27/S2YI1ZBipPG3hLe.jpg" alt="img" loading="lazy"></figure>
+</li>
+<li>
+<p>访问配置页面</p>
+<ul>
+<li>
+<p>方式1：域名访问 http://local.whistlejs.com/</p>
+</li>
+<li>
+<p>方式2：通过ip+端口来访问，形式如 <code>http://whistleServerIP:whistlePort/</code> e.g. <a href="http://127.0.0.1:8899/">http://127.0.0.1:8899</a></p>
+</li>
+<li>
+<p>方式2：通过命令行参数 <code>-P xxxx</code> 自定义webui的端口(<code>xxxx</code>表示要设置的端口号)，自定义端口支持上述两种方</p>
+<p>式访问，也支持 <a href="http://127.0.0.1:xxxx/">http://127.0.0.1:xxxx</a></p>
+<figure data-type="image" tabindex="5"><img src="https://i.loli.net/2020/04/27/lNmHR2aipqYOx4e.png" alt="image-20200427121814079" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://i.loli.net/2020/04/27/WAZ7qxDLtdHKaVy.png" alt="image-20200427121855918" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>注入文件配置</p>
+<pre><code>w2 add [filepath]
+</code></pre>
+</li>
+</ul>
+<h5 id="常用功能">常用功能</h5>
+<ul>
+<li>
+<p>Host映射</p>
+<pre><code># host映射
+192.168.0.107 http://checkout.m.xiaodianpu.com
+192.168.0.107 http://oauth2.m.xiaodianpu.com
+192.168.0.107 http://shop12345678.m.xiaodianpu.com
+127.0.0.1 http://shop.m.xiaodianpu.com    # 直接的host配置
+192.168.0.107:8081 one.test.com two.test.com         # 对全部域名路径替换host
+192.168.0.107 three.com/ads                # 对特定的路径替换host
+</code></pre>
+</li>
+<li>
+<p>请求转发</p>
+<pre><code># 请求转发
+shop02604127.m.xiaodianpu.com https://shop02604127.m.xiaodianpu.com
+oauth2.m.xiaodianpu.com https://oauth2.m.xiaodianpu.com
+checkout.m.xiaodianpu.com https://checkout.m.xiaodianpu.com
+**.m.xiaodianpu.com https://shop02604127.m.xiaodianpu.com  # 所有子域名转发生效
+</code></pre>
+</li>
+<li>
+<p>调试远程页面</p>
+<pre><code>https://shop02604127.m.xiaodianpu.com weinre://test
+</code></pre>
+</li>
+<li>
+<p>开启Eruda，插件形式注入</p>
+<pre><code># 开启eruda
+shop12345678.m.xiaodianpu.com whistle.inspect://e
+checkout.m.xiaodianpu.com whistle.inspect://e
+</code></pre>
+</li>
+<li>
+<p>开启Vconsole, 插件形式注入</p>
+<pre><code># 开启eruda
+shop12345678.m.xiaodianpu.com whistle.inspect://e
+checkout.m.xiaodianpu.com whistle.inspect://e
+</code></pre>
+</li>
+<li>
+<p>数据Mock</p>
+<p>基于<a href="https://github.com/nuysoft/Mock">Mock.js</a></p>
+<pre><code>	
+http://mock.local/data.json vase://mock_json_demo
+</code></pre>
+</li>
+<li>
+<p>开启跨域</p>
+<pre><code># 开启跨域
+test.com file://{createData.json}
+</code></pre>
+</li>
+<li>
+<p>脚本注入</p>
+<pre><code># 脚本注入
+test.com html://Users/fan/xdp-webapp/whistle/debug.html
+shop02604127.m.xiaodianpu.com js://Users/fan/xdp-webapp/whistle/debug.js
+test.com css://Users/fan/xdp-webapp/whistle/debug.css
+
+</code></pre>
+</li>
+<li>
+<p>重定向</p>
+<pre><code># 重定向
+https://www.baidu.com/ redirect://https://m.xiaodianpu.com
+
+</code></pre>
+</li>
+<li>
+<p>替换线上文件</p>
+<pre><code>static.seecsee.com/ufs/webapp/3de34c68/main-es2015.ce5beedbe4b13d68c4ab.js file:///Users/fan/xdp-webapp/dist/apps/webapp/browser/main.js
+</code></pre>
+</li>
+<li>
+<p>修改请求</p>
+<pre><code># 修改url参数
+www.qq.com urlParams://E:\test\params.json        
+ 
+# 请求方法
+www.qq.com method://post
+ 
+# 添加请求头
+www.qq.com reqHeaders://(x-a=1&amp;x-b=a%20b)
+ 
+# 修改referer(修改referer快捷方法)
+www.qq.com referer://http://ke.qq.com/
+ 
+# 修改cookie(修改请求cookie快捷方法)
+www.qq.com reqCookie://{reqCookie.json}
+ 
+# 修改请求表单
+www.qq.com params://{form.json}
+
+# 修改接口返回状态
+https://test.com/test statusCode://500
+</code></pre>
+</li>
+<li>
+<p>修改响应</p>
+<pre><code># 修改响应状态码
+www.qq.com statusCode://500 # 请求不会发送到后台服务器，可以用来模拟4xx、5xx请求
+www.qq.com replaceStatus://404 # 请求返回后再修改statusCode
+ 
+# 添加响应头
+www.qq.com resHeaders://(x-res-a=1&amp;x-res-b=a%20b)
+ 
+# 修改响应类型(修改响应类型的快捷方法)
+www.qq.com resType://text/plain # 或者： www.qq.com resType://text
+ 
+# 请求替换
+www.qq.com https://www.baidu.com
+ 
+# 本地替换(windows中目录分割符可以用`\`，也可以用`/`)
+www.qq.com file://E:\xxx # 等价于： file://E:/xxx www.qq.com
+# Mac或Linux
+www.qq.com file:///User/xxx/test
+# 如果要让本地没有对应文件的请求继续请求线上，可以采用
+www.qq.com xfile://E:\xxx
+ 
+# 本地替换jsonp
+www.qq.com tpl://E:\xxx.json # xxx.json: {callback}({&quot;ec&quot;: 0})
+www.qq.com xtpl://E:\xxx.json # xxx.json: {callback}({&quot;ec&quot;: 0})
+	
+# 说明：会把内容 append 到请求后面
+http://mydomain.com/style.css resAppend://{myAppend.css}
+# 说明：完全替换请求内容
+http://mydomain.com/style.css resBody://{myResBody.css}
+ 
+
+</code></pre>
+</li>
+<li>
+<p>启用或禁用一些配置</p>
+<pre><code># 拦截url里面有baidu的https请求
+/baidu/ enable://intercept
+
+# 拦截域名www.google.com下的所有https请求，且不在Network上显示
+www.google.com enable://intercept|hide
+
+# 禁用请求的缓存，只要经过代理且匹配到的请求都不会使用缓存
+# 跟 cache 协议的区别是，cache 只是用来设置响应的缓存头
+wwww.test.com disable://cache
+
+# 禁用请求和响应的cookie
+wwww.test.com disable://cookie # 也可以写成复数形式cookies
+
+# 只禁用请求的cookie
+wwww.test.com disable://reqCookie # 也可以写成复数形式reqCookies
+
+# 只禁用响应的cookie
+wwww.test.com disable://resCookie # 也可以写成复数形式reqCookies
+</code></pre>
+</li>
+</ul>
+<h3 id="更多">更多</h3>
+<p>whistle更多使用及插件开发请参考官方文档：<a href="http://wproxy.org/whistle/">wproxy.org/whistle/</a></p>
+<p>项目中具体的问题，根据场景，选择合适的工具方法，搭配使用！</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://fanguyun214.github.io/post/zhi-fu-bao-zhi-fu-jie-ru/" class="post-title gt-a-link">
+                    支付宝支付接入
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '94fca913faabe61337e0',
+    clientSecret: '9ee8a359f64b424f77e6fba28063b59788b92af1',
+    repo: 'fanguyun214.github.io',
+    owner: 'fanguyun214',
+    admin: ['fanguyun214'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">⌨️ 格物、致知、诚意  🎉<br/>
+⌨️ 正心、修身、齐家  🎉</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by Jasonfan & Grider  🖥
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://fanguyun214.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

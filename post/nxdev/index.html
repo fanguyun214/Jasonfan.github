@@ -1,0 +1,1048 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Nx:构建企业级Monorepo应用程序的新方法 | Jasonfan Blog</title>
+
+<link rel="shortcut icon" href="https://fanguyun214.github.io/favicon.ico?v=1616378338621">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fanguyun214.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Jasonfan Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1616378338621"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Nx:构建企业级Monorepo应用程序的新方法
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-07-25 ·
+                    </time>
+                    
+                        <a href="https://fanguyun214.github.io/tag/8-pCBu3Tk/" class="post-tags">
+                            # NX
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/zw8cBAsq1V/" class="post-tags">
+                            # 架构
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>现代Web开发工具。</p>
+<!-- more -->
+<p>使用Nx，您可以：</p>
+<ul>
+<li>使用Cypress，Jest，Prettier，TypeScript等现代工具......</li>
+<li>使用Angular和Node.js构建全栈应用程序</li>
+<li>使用Google，Facebook和Microsoft开创的有效开发实践</li>
+</ul>
+<h3 id="tldr">TLDR</h3>
+<pre><code>npx create-nx-workspace myapp --preset=angular
+cd myapp
+ng serve myapp
+</code></pre>
+<h3 id="创建nx工作区">创建Nx工作区</h3>
+<p>运用 npx</p>
+<pre><code>npx create-nx-workspace@latest myworkspace
+</code></pre>
+<p>运用npm init</p>
+<pre><code>npm init nx-workspace myworkspace
+</code></pre>
+<p>运用yarn create</p>
+<pre><code>yarn create nx-workspace myworkspace
+</code></pre>
+<p><em><strong>添加到现有Angular CLI工作区</strong></em><br>
+如果您已经有一个常规的Angular CLI项目，则可以通过运行以下命令来添加Nx：</p>
+<pre><code>ng add @nrwl/workspace
+</code></pre>
+<h3 id="添加功能">添加功能</h3>
+<p>如果您尚未指定任何预设，您将获得一个空的Nx工作区。没有用于构建，服务和测试的应用程序。您可以运行以下命令向工作区添加功能：<br>
+运用 npm</p>
+<pre><code>npm install --dev @nrwl/angular # Adds Angular capabilities
+npm install --dev @nrwl/web # Adds Web capabilities
+npm install --dev @nrwl/react # Adds React capabilities
+npm install --dev @nrwl/node # Adds Node capabilities
+npm install --dev @nrwl/express # Adds Express capabilities
+npm install --dev @nrwl/nest # Adds Nest capabilities
+</code></pre>
+<p>运用yarn</p>
+<pre><code>yarn add --dev @nrwl/react # Adds React capabilities
+yarn add --dev @nrwl/web # Adds Web capabilities
+yarn add --dev @nrwl/angular # Adds Angular capabilities
+yarn add --dev @nrwl/node # Adds Node capabilities
+yarn add --dev @nrwl/express # Adds Express capabilities
+yarn add --dev @nrwl/nest # Adds Nest capabilities
+</code></pre>
+<p>运用ng add</p>
+<pre><code>ng add @nrwl/angular # Adds Angular capabilities
+ng add @nrwl/web # Adds Web capabilities
+ng add @nrwl/react # Adds React capabilities
+ng add @nrwl/node # Adds Node capabilities
+ng add @nrwl/express # Adds Express capabilities
+ng add @nrwl/nest # Adds Nest capabilities
+</code></pre>
+<h3 id="创建第一个应用程序">创建第一个应用程序</h3>
+<p>添加功能后，您现在可以通过以下方式创建第一个应用程序</p>
+<pre><code>ng g @nrwl/angular:application myapp
+</code></pre>
+<p>结果将如下所示：</p>
+<pre><code>&lt;workspace name&gt;/
+├── apps/
+│   ├── myapp/
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   ├── assets/
+│   │   │   ├── environments/
+│   │   │   ├── favicon.ico
+│   │   │   ├── index.html
+│   │   │   ├── main.ts
+│   │   │   ├── polyfills.ts
+│   │   │   ├── styles.scss
+│   │   │   └── test.ts
+│   │   ├── browserslist
+│   │   ├── jest.config.js
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.spec.json
+│   │   └── tslint.json
+│   └── myapp-e2e/
+│       ├── src/
+│       │   ├── fixtures/
+│       │   │   └── example.json
+│       │   ├── integration/
+│       │   │   └── app.spec.ts
+│       │   ├── plugins/
+│       │   │   └── index.ts
+│       │   └── support/
+│       │       ├── app.po.ts
+│       │       ├── commands.ts
+│       │       └── index.ts
+│       ├── cypress.json
+│       ├── tsconfig.e2e.json
+│       ├── tsconfig.json
+│       └── tslint.json
+├── libs/
+├── tools/
+├── README.md
+├── angular.json
+├── nx.json
+├── package.json
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>Angular CLI在新项目中拥有的所有文件仍然在这里，只是在不同的文件夹结构中，这使得将来更容易创建更多的应用程序和库。</p>
+<h3 id="运行应用">运行应用</h3>
+<pre><code>ng serve myapp
+</code></pre>
+<h3 id="构建多应用工作区">构建多应用工作区</h3>
+<ul>
+<li>使用Angular和Nest构建一个完整的堆栈应用程序。</li>
+<li>在前端和后端之间共享代码</li>
+</ul>
+<h4 id="创建一个空工作区">创建一个空工作区</h4>
+<pre><code>npx create-nx-workspace@latest myorg
+cd myorg
+</code></pre>
+<h4 id="创建前端应用程序">创建前端应用程序</h4>
+<p>使用Angular创建一个前端应用程序</p>
+<pre><code>ng add @nrwl/angular # Add Angular Capabilities to the workspace
+ng g @nrwl/angular:application frontend # Create an Angular Application
+</code></pre>
+<p>这将创建以下内容:</p>
+<pre><code>myorg/
+├── apps/
+│   ├── frontend/
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   │   ├── app.component.html
+│   │   │   │   ├── app.component.scss
+│   │   │   │   ├── app.component.spec.ts
+│   │   │   │   ├── app.component.ts
+│   │   │   │   ├── app.module.ts
+│   │   │   ├── assets/
+│   │   │   ├── environments/
+│   │   │   ├── favicon.ico
+│   │   │   ├── index.html
+│   │   │   ├── main.ts
+│   │   │   ├── polyfills.ts
+│   │   │   ├── styles.scss
+│   │   │   └── test.ts
+│   │   ├── browserslist
+│   │   ├── jest.config.js
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.spec.json
+│   │   └── tslint.json
+│   └── frontend-e2e/
+├── README.md
+├── libs/
+├── tools/
+├── angular.json
+├── nx.json
+├── package.json
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>运行：</p>
+<pre><code>ng serve frontend 为应用程序服务
+ng build frontend 构建应用程序
+ng test frontend 测试应用程序
+</code></pre>
+<h4 id="创建api应用并在前端引入api">创建API应用并在前端引入API</h4>
+<p>添加HttpClientModule到apps/frontend/src/app/app.module.ts：</p>
+<pre><code>import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+</code></pre>
+<p>编辑apps/frontend/src/app/app.component.ts以从Todos API获取Todos：</p>
+<pre><code>import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+interface Todo {
+  title: string;
+}
+
+@Component({
+  selector: 'myorg-root',
+  template: `
+    &lt;h1&gt;Todos&lt;/h1&gt;
+    &lt;ul&gt;
+      &lt;li *ngFor=&quot;let t of (todos | async)&quot;&gt;{{ t.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  `
+})
+export class AppComponent {
+  todos: Observable&lt;Todo[]&gt;;
+
+  constructor(http: HttpClient) {
+    this.todos = http.get&lt;Todo[]&gt;('/api/todos');
+  }
+}
+</code></pre>
+<p>由于API不存在，因此尚未显示任何待办事项。所以下一步是使用Nest创建api。<br>
+创建一个类似于之前创建Angular应用程序的Nest应用程序：</p>
+<pre><code>ng add @nrwl/nest # Add Node Capabilities to the workspace
+ng g @nrwl/nest:application api --frontend-project frontend # sets up the proxy configuration so you can access the API in development
+</code></pre>
+<p>这将创建以下内容:</p>
+<pre><code>myorg/
+├── apps/
+│   ├── frontend/
+│   ├── frontend-e2e/
+│   └── api/
+│       ├── src/
+│       │   ├── app/
+│       │   │   ├── app.controller.spec.ts
+│       │   │   ├── app.controller.ts
+│       │   │   ├── app.module.ts
+│       │   │   ├── app.service.spec.ts
+│       │   │   ├── app.service.ts
+│       │   ├── assets/
+│       │   ├── environments/
+│       │   └── main.ts
+│       ├── jest.config.js
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.spec.json
+│       └── tslint.json
+├── libs/
+├── nx.json
+├── package.json
+├── tools/
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>apps目录是Nx放置运行应用的地方：前端应用程序，后端应用程序，e2e测试套件等。</p>
+<p>Nest是一个很棒的框架，它与Angular分享了许多核心概念。它使用模块，提供程序，依赖注入等。因此，大多数Angular开发人员发现Nest易于使用。<br>
+运行API应用</p>
+<pre><code>ng serve api 为应用程序服务
+ng build api 构建应用程序
+ng test api 测试应用程序
+</code></pre>
+<p>生成的apps/api/src/app/app.module.ts内容如下所示：</p>
+<pre><code>import { Module } from '@nestjs/common';
+
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+@Module({
+  imports: [],
+  controllers: [AppController],
+  providers: [AppService]
+})
+export class AppModule {}
+</code></pre>
+<ul>
+<li>如果您愿意express，请改为运行以下命令：</li>
+</ul>
+<pre><code>ng add @nrwl/express # Add Express Capabilities to the workspace
+ng g @nrwl/express:application api --frontend-project frontend
+</code></pre>
+<h4 id="添加api接口">添加API接口</h4>
+<p>现在，通过更新添加接口以获取待办事项 app.service.ts</p>
+<pre><code>import { Injectable } from '@nestjs/common';
+
+export interface Todo {
+  title: string;
+}
+
+@Injectable()
+export class AppService {
+  getTodos(): Todo[] {
+    return [{ title: 'Fix my computer!' }, { title: 'Fix my desk' }];
+  }
+}
+</code></pre>
+<p>和 app.controller.ts</p>
+<pre><code>import { Controller, Get } from '@nestjs/common';
+
+import { AppService, Todo } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get('todos')
+  getTodos(): Todo[] {
+    return this.appService.getTodos();
+  }
+}
+</code></pre>
+<p>现在，运行ng serve  &amp; ng serve api并打开http：// localhost：4200以查看前端和后端是否正常工作:<br>
+<img src="https://fanguyun214.github.io/post-images/1564193094260.png" alt="" loading="lazy"><br>
+有一个小问题。该Todo接口被定义了两次：一次是在前端，一旦在后端。这种重复将不可避免地导致两个接口不同步，这意味着运行时错误将会蔓延。最好共享此接口。</p>
+<h3 id="在前端和后端之间共享代码">在前端和后端之间共享代码</h3>
+<p>在Nx中，代码通过创建库来共享。因为所有内容都在一个存储库中，所以可以导入库而无需将它们发布到注册表。</p>
+<p>通过以下方式创建新库：</p>
+<pre><code>ng g @nrwl/workspace:library data # This generates a barebone library with only Typescript setup
+</code></pre>
+<pre><code>&lt;workspace name&gt;/
+├── apps/
+│   ├── frontend/
+│   ├── frontend-e2e/
+│   └── api/
+├── libs/
+│   └── data/
+│       ├── src/
+│       │   ├── lib/
+│       │   │   └── data.ts
+│       │   └── index.ts
+│       ├── jest.config.js
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.spec.json
+│       └── tslint.json
+├── nx.json
+├── package.json
+├── tools/
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>接下来，Todo进入libs/data/src/lib/data.ts：</p>
+<pre><code>export interface Todo {
+  title: string;
+}
+</code></pre>
+<p>最后，更新前端和后端以从库中导入接口。<br>
+更新apps/frontend/src/app/app.component.ts：</p>
+<pre><code>import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Todo } from '@myorg/data';
+
+@Component({
+  selector: 'myorg-root',
+  template: `
+    &lt;h1&gt;Todos&lt;/h1&gt;
+    &lt;ul&gt;
+      &lt;li *ngFor=&quot;let t of (todos | async)&quot;&gt;{{ t.title }}&lt;/li&gt;
+    &lt;/ul&gt;
+  `
+})
+export class AppComponent {
+  todos: Observable&lt;Todo[]&gt;;
+
+  constructor(http: HttpClient) {
+    this.todos = http.get&lt;Todo[]&gt;('/api/todos');
+  }
+}
+</code></pre>
+<p>更新apps/api/src/app/app.service.ts：</p>
+<pre><code>import { Injectable } from '@nestjs/common';
+import { Todo } from '@myorg/data';
+
+@Injectable()
+export class AppService {
+  getTodos(): Todo[] {
+    return [{ title: 'Fix my computer!' }, { title: 'Fix my desk' }];
+  }
+}
+</code></pre>
+<p>更新apps/api/src/app/app.controller.ts：</p>
+<pre><code>import { Controller, Get } from '@nestjs/common';
+
+import { Todo } from '@myorg/data';
+
+import { AppService } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get('todos')
+  getTodos(): Todo[] {
+    return this.appService.getTodos();
+  }
+}
+</code></pre>
+<p>在这个重构之后，后端和前端将共享相同的定义。能够将代码分解为许多具有定义良好的公共API的小型库，然后可以在后端和前端使用，这是Nx的一个关键特性。</p>
+<h3 id="应用依赖关系">应用依赖关系</h3>
+<p>拥有前端代码和后端代码已经令人惊叹了。只需几分钟，您就拥有了一个可以构建多个前端和后端应用程序并在它们之间共享代码的存储库。</p>
+<p>但Nx可以做的远不止这些。在Nx中，您的库，后端应用程序，前端应用程序都是相同依赖关系图的一部分，您可以通过以下方式查看：</p>
+<pre><code>npm run dep-graph
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://fanguyun214.github.io/post-images/1564193447705.png" alt="" loading="lazy"></figure>
+<h3 id="创建libs">创建Libs</h3>
+<p>Libs不仅仅是在Nx中共享代码的一种方式。它们也可用于将代码分解为具有定义良好的公共API的小单元。</p>
+<h4 id="公共api">公共API</h4>
+<p>每个Libs都有一个index.ts文件，用于定义其公共API。其他应用程序和库应该只访问index.ts导出的内容。图书馆的其他所有内容都是私密的</p>
+<h4 id="ui-libs">UI Libs</h4>
+<p>为了说明库的有用性，可以创建一个Angular ui库:</p>
+<pre><code>ng g @nrwl/angular:lib ui
+</code></pre>
+<p>你应该看到以下内容：</p>
+<pre><code>myorg/
+├── apps/
+│   ├── todos/
+│   ├── todos-e2e/
+│   └── api/
+├── libs/
+│   ├── data/
+│   └── ui/
+│       ├── src/
+│       │   ├── lib/
+│       │   │   ├── ui.module.spec.ts
+│       │   │   └── ui.module.ts
+│       │   └── index.ts
+│       ├── jest.conf.js
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.spec.json
+│       └── tslint.json
+├── nx.json
+├── package.json
+├── tools/
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>该libs/ui/src/lib/ui.module.ts文件如下所示：</p>
+<pre><code>import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  imports: [CommonModule]
+})
+export class UiModule {}
+</code></pre>
+<h4 id="添加组件">添加组件</h4>
+<p>通过运行以下命令将组件添加到新创建的ui库:</p>
+<pre><code>ng g component todos --project=ui --export
+</code></pre>
+<pre><code>myorg/
+├── apps/
+│   ├── todos/
+│   ├── todos-e2e/
+│   └── api/
+├── libs/
+│   ├── data/
+│   └── ui/
+│       ├── src/
+│       │   ├── lib/
+│       │   │   ├── todos/
+│       │   │   │   ├── todos.component.css
+│       │   │   │   ├── todos.component.html
+│       │   │   │   ├── todos.component.spec.ts
+│       │   │   │   └── todos.component.ts
+│       │   │   ├── ui.module.spec.ts
+│       │   │   └── ui.module.ts
+│       │   └── index.ts
+│       ├── jest.conf.js
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.spec.json
+│       └── tslint.json
+├── nx.json
+├── package.json
+├── tools/
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>添加todos输入libs/src/lib/todos/todos.component.ts:</p>
+<pre><code>import { Component, OnInit, Input } from '@angular/core';
+import { Todo } from '@myorg/data';
+
+@Component({
+  selector: 'myorg-todos',
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.css']
+})
+export class TodosComponent implements OnInit {
+  @Input() todos: Todo[];
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+</code></pre>
+<p>并更新todos.component.html以显示给定的待办事项：</p>
+<pre><code>&lt;ul&gt;
+  &lt;li *ngFor=&quot;let t of todos&quot;&gt;{{ t.title }}&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h4 id="使用ui库app挂载lib">使用UI库，app挂载lib</h4>
+<p>现在导入UiModule到apps/todos/src/app/app.module.ts：</p>
+<pre><code>import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UiModule } from '@myorg/ui';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule, UiModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+</code></pre>
+<p>更新app.component.html：</p>
+<pre><code>&lt;h1&gt;Todos&lt;/h1&gt;
+
+&lt;myorg-todos [todos]=&quot;todos&quot;&gt;&lt;/myorg-todos&gt;
+
+&lt;button (click)=&quot;addTodo()&quot;&gt;Add Todo&lt;/button&gt;
+</code></pre>
+<h3 id="app和libs">app和Libs</h3>
+<p>根据项目复杂度可将架构拆分为多个app，对应的app可以挂载对应的lib。<br>
+app配置依赖注入和连接Libs。它们不应包含任何组件，服务或业务逻辑。<br>
+Libs包含服务，组件，实用程序等。它们具有定义良好的公共API。<br>
+典型的Nx工作区比app具有更多的Libs，因此要特别注意libs目录的组织。</p>
+<p>将特定于app的libs放入与app名称匹配的目录中是一个很好的约定：</p>
+<pre><code>happynrwl/
+├── apps/
+│   ├── happynrwlapp/
+│   ├── happynrwlapp-e2e/
+│   ├── adminapp/
+│   └── adminapp-e2e/
+├── libs/
+│   ├── happynrwlapp/
+│   │   ├── feature-main/
+│   │   ├── ui-table/
+│   │   └── utils-testing/
+│   ├── adminapp/
+│   │   ├── feature-main/
+│   │   ├── feature-login/
+│   │   ├── ui/
+│   │   └── utils-testing/
+│   └── shared/
+│       ├── ui/
+│       └── utils-testing/
+├── tools/
+├── angular.json
+├── nx.json
+├── package.json
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>对于较大的项目，最好将库分组到应用程序部分:</p>
+<pre><code>happynrwl/
+├── apps/
+├── libs/
+│   ├── happynrwlapp/
+│   │    ├── registration/
+│   │    │   ├── feature-main/
+│   │    │   ├── feature-login/
+│   │    │   ├── ui-form/
+│   │    │   └── utils-testing/
+│   │    ├── search/
+│   │    │   ├── feature-results/
+│   │    │   └── utils-testing/
+│   │    └── shared/
+│   │        └── ui/
+│   ├── adminapp/
+|   └── shared/
+│       ├── ui/
+│       └── utils-testing/
+├── tools/
+├── angular.json
+├── nx.json
+├── package.json
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>这里：</p>
+<pre><code>happynrwlapp/registration/feature-main- 在一个地方使用的范围库
+happynrwlapp/shared/ui- 在单个应用程序中使用的共享库
+shared/ui- 跨应用程序使用的共享库
+</code></pre>
+<h3 id="懒加载库">懒加载库</h3>
+<p>Lazing加载此代码有助于捆绑包大小，减少应用程序的启动时间：</p>
+<pre><code>ng g @nrwl/angular:lib todo-list-shell --router --lazy --parentModule=apps/todos/src/app/app.module.ts
+</code></pre>
+<ul>
+<li>--routing：添加路由器配置。</li>
+<li>--lazy：RouterModule.forChild设置为true时添加，设置为false时为简单路径数组。</li>
+<li>--parentModule：更新父模块。</li>
+</ul>
+<pre><code>myorg/
+├── apps/
+│   ├── todos/
+│   ├── todos-e2e/
+│   └── api/
+├── libs/
+│   └── todo-list-shell/
+│       ├── jest.conf.js
+│       ├── src/
+│       │   ├── lib/
+│       │   │  ├── todo-list-shell.module.spec.ts
+│       │   │  └── todo-list-shell.module.ts
+│       │   └── index.ts
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.spec.json
+│       └── tslint.json
+├── nx.json
+├── package.json
+├── tools/
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>todo-list-shell.module.ts:</p>
+<pre><code>import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+@NgModule({
+  imports: [
+    CommonModule,
+
+    RouterModule.forChild([
+      /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+    ])
+  ]
+})
+export class FeatureShellModule {}
+</code></pre>
+<p>添加组件，现在将一个组件添加到新创建的todo-list-shell库中：</p>
+<pre><code>ng g component main --project=todo-list-shell
+</code></pre>
+<pre><code>myorg/
+├── apps/
+│   ├── todos/
+│   ├── todos-e2e/
+│   └── api/
+├── libs/
+│   └── todo-list-shell/
+│       ├── jest.conf.js
+│       ├── src/
+│       │   ├── lib/
+│       │   │  ├── todo-list/
+│       │   │  │   ├── todo-list.component.css
+│       │   │  │   ├── todo-list.component.html
+│       │   │  │   ├── todo-list.component.spec.ts
+│       │   │  │   └── todo-list.component.ts
+│       │   │  ├── todo-list-shell.module.spec.ts
+│       │   │  └── todo-list-shell.module.ts
+│       │   └── index.ts
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.spec.json
+│       └── tslint.json
+├── nx.json
+├── package.json
+├── tools/
+├── tsconfig.json
+└── tslint.json
+</code></pre>
+<p>接下来，更新TodoListShellModule以使用组件：</p>
+<pre><code>import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TodoListComponent } from './todo-list/todo-list.component';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forChild([
+      { path: '', pathMatch: 'full', component: TodoListComponent }
+    ])
+  ]
+})
+export class TodoListShellModule {}
+</code></pre>
+<p>app.module.ts通过使用loadChildren属性添加惰性路由:</p>
+<pre><code>import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+// You can add multiple routes as your needs
+const routes: Routes = [
+  {
+    path: 'list',
+    loadChildren: () =&gt;
+      import('@myorg/todo-list-shell').then(m =&gt; m.TodoListShellModule)
+  }
+];
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+</code></pre>
+<h3 id="快捷使用">快捷使用</h3>
+<h4 id="创建-app-和-lib">创建 app 和 lib</h4>
+<p>创建App：<br>
+yarn ng g @nrwl/angular:application demo --routing --style=less。添加参数 --dry-run （或 -d 简写）来查看当前操作将会创建的文件<br>
+创建Lib：<br>
+yarn ng g lib demo --routing --lazy --parent-module=apps/demo/src/app/app.module.ts --directory=demo/views。</p>
+<h4 id="修改-angularjson">修改 angular.json：</h4>
+<pre><code>{
+  &quot;projects&quot;: {
+    &quot;demo&quot;: {
+      &quot;architect&quot;: {
+        &quot;build&quot;: {
+          &quot;options&quot;: {
+          &quot;styles&quot;: [
+              &quot;apps/demo/src/styles.less&quot;, // 引用当前 app 的样式
++             &quot;styles/styles.less&quot;          // 引用全局公共样式
+            ],
+          },
+          &quot;configurations&quot;: {
+            &quot;production&quot;: {
++              &quot;baseHref&quot;: &quot;/&quot;,
+            }
+          }
+        },
+        &quot;serve&quot;: {
+          &quot;options&quot;: {
++            &quot;port&quot;: 5001, // 每个 app 设置不一样的端口
++            &quot;proxyConfig&quot;: &quot;proxy.conf.js&quot;,
+          }
+        }
+      }
+    }
+  }
+} 
+</code></pre>
+<p><a href="https://github.com/angular/angular-cli/wiki/stories-configure-hmr">配置热更新</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://fanguyun214.github.io/post/apollo-client-16authentication/" class="post-title gt-a-link">
+                    Apollo Client - 16.Authentication
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '94fca913faabe61337e0',
+    clientSecret: '9ee8a359f64b424f77e6fba28063b59788b92af1',
+    repo: 'fanguyun214.github.io',
+    owner: 'fanguyun214',
+    admin: ['fanguyun214'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">⌨️ 格物、致知、诚意  🎉<br/>
+⌨️ 正心、修身、齐家  🎉</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by Jasonfan & Grider  🖥
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://fanguyun214.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

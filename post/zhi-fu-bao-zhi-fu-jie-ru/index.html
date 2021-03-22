@@ -1,0 +1,469 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>支付宝支付接入 | Jasonfan Blog</title>
+
+<link rel="shortcut icon" href="https://fanguyun214.github.io/favicon.ico?v=1616378338621">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fanguyun214.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Jasonfan Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1616378338621"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    支付宝支付接入
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-03-02 ·
+                    </time>
+                    
+                        <a href="https://fanguyun214.github.io/tag/kOO3Y9DvW/" class="post-tags">
+                            # 支付宝支付
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/cqxfWrXpvL/" class="post-tags">
+                            # Node
+                        </a>
+                    
+                        <a href="https://fanguyun214.github.io/tag/dPTLxySfF6/" class="post-tags">
+                            # Alipay
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>支付宝开放平台，致力于为开发者提供支付、理财、信用、口碑开店、安全、营销、社交等各类能力及行业解决方案。</p>
+<!-- more -->
+<h4 id="1-支付宝应用接入流程">1、支付宝应用接入流程</h4>
+<table>
+<thead>
+<tr>
+<th>流程</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1、创建应用</td>
+<td><a href="https://docs.open.alipay.com/200/105894/">应用介绍</a> <a href="https://docs.open.alipay.com/200/105310/">创建应用</a> 应用安全开发指南 设计规范</td>
+</tr>
+<tr>
+<td>2、开始开发</td>
+<td>了解产品 快速接入 更多帮助与支持</td>
+</tr>
+<tr>
+<td>3、上线使用</td>
+<td><a href="https://docs.open.alipay.com/200/golive/">上线应用</a> 使用应用 <a href="https://docs.open.alipay.com/200/105314/">签约功能</a> 发布到服务市场</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-应用简介">2、应用简介</h4>
+<p>通过创建应用的方式接入蚂蚁各项产品（如当面付、开店、发券、服务窗、余利宝等）接口并进行开发。<br>
+目前开放平台的应用按使用对象分为两类：自研型应用 和 第三方应用（商户服务型应用）:</p>
+<table>
+<thead>
+<tr>
+<th>应用类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自研型应用</td>
+<td>使用开放的功能，为自己或自己公司开发应用。自研型应用分为网页/移动，小程序，生活号。</td>
+</tr>
+<tr>
+<td>第三方应用</td>
+<td>适用于服务商，为商户开发应用，拓展商户使用</td>
+</tr>
+</tbody>
+</table>
+<p>如果您的应用为第三方应用（即供商家使用），则需要商家对该应用进行授权，详细步骤可以参考 <a href="https://docs.alipay.com/isv/10467/xldcyq">第三方应用授权</a>。</p>
+<pre><code>创建应用 -&gt; 应用配置 -&gt; 上线应用 -&gt; 签约功能（如手机网站支付，APP支付等）-&gt; 开发接入已签约功能
+</code></pre>
+<h5 id="-开发者使用支付宝账号登录开放平台需实名认证的支付宝账号根据实际需求创建应用如支付应用">- 开发者使用支付宝账号<a href="https://auth.alipay.com/login/index.htm?goto=https%3A%2F%2Fopenhome.alipay.com%2Fplatform%2FmanageApp.htm">登录开放平台</a>（需实名认证的支付宝账号），根据实际需求创建应用（如“支付应用”）。</h5>
+<p>输入名称，上传应用图标，选择应用功能（如手机网站支付，APP支付等），<a href="https://docs.open.alipay.com/291/105971">下载签名工具</a>生成生成商户应用私钥和商户应用公钥，回到开放平台的应用完善页面，点击设置应用公钥，接收验证码，输入上一步生成的商户应用公钥，点击确定。然后会生成对应的支付宝公钥，商户应用公钥和支付宝公钥要明确区分开。<br>
+<strong>开发代码中要使用到 支付宝公钥  和 商户应用私钥</strong><br>
+提交审核，一天之后，审核完成，显示应用上线。签约选择的应用功能，开始代码开发。</p>
+<h4 id="3-手机网站支付接入h5网站">3、<a href="https://docs.open.alipay.com/203/105288/">手机网站支付接入(H5网站)</a></h4>
+<h5 id="-31-业务场景">- 3.1、业务场景</h5>
+<p><strong>移动网页应用无需集成SDK也可以唤起支付宝客户端支付。</strong><br>
+在网页应用中调用支付宝提供的网页支付接口，接口会调起支付宝客户端内的支付模块，此时会从商家网页应用跳转到支付宝客户端中并开始支付；支付完成后会跳转回商家网页应用内，最后商家展示支付结果。</p>
+<h5 id="-32-接入条件">- 3.2、接入条件</h5>
+<ul>
+<li>申请前必须拥有经过实名认证的支付宝账户；</li>
+<li>企业或个体工商户可申请；</li>
+<li>需提供真实有效的营业执照，且支付宝账户名称需与营业执照主体一致；</li>
+<li>网站能正常访问且页面显示完整，网站需要明确经营内容且有完整的商品信息；</li>
+<li>网站必须通过ICP备案。如为个体工商户，网站备案主体需要与支付宝账户主体名称一致；</li>
+<li>如为个体工商户，则团购不开放，且古玩、珠宝等奢侈品、投资类行业无法申请本产品。</li>
+<li>费率按单笔计算；一般行业费率：0.6%；</li>
+<li>特殊行业费率：1.2%，特殊行业范围包括：手机、通讯设备销售；家用电器；数码产品及配件；休闲游戏；网络游戏点卡、渠道代理；游戏系统商；网游周边服务、交易平台；网游运营商（含网页游戏）</li>
+</ul>
+<h5 id="-33-开发前准备快速接入">- 3.3 <a href="https://docs.open.alipay.com/203/107084/">开发前准备</a>&amp;<a href="https://docs.open.alipay.com/203/105285/">快速接入</a></h5>
+<p>1、创建应用并获取APPID</p>
+<p>登录蚂蚁金服开放平台（<a href="open.alipay.com">open.alipay.com</a>），登记个人应用后，审核通过将会得到应用的唯一标识（APPID）。</p>
+<p>2、配置密钥</p>
+<p>开发者调用接口前需要先生成RSA密钥，RSA密钥包含应用私钥(APP_PRIVATE_KEY)、应用公钥(APP_PUBLIC_KEY）。</p>
+<p>详情见：<a href="https://docs.open.alipay.com/291/105971/">https://docs.open.alipay.com/291/105971/</a></p>
+<p>3、下载服务端SDK</p>
+<p>下载地址：<a href="https://docs.open.alipay.com/203/105910/">https://docs.open.alipay.com/203/105910/</a></p>
+<p>4、接口调用配置</p>
+<p>5、调用接口</p>
+<p>手机网站支付产品包含两类API：</p>
+<p>页面跳转类：需要从前端页面以Form表单的形式发起请求，浏览器会自动跳转至支付宝的相关页面（一般是收银台或签约页面），用户在该页面完成相关业务操作后再回跳到商户指定页面。例如本产品中的手机网站支付接口alipay.trade.wap.pay。</p>
+<p>系统调用类：直接从服务端发起HTTP请求，支付宝会同步返回请求结果。例如本产品中的交易查询等配套API。<br>
+<strong>接口调用流程</strong><br>
+<img src="https://fanguyun214.github.io/post-images/1583145118760.png" alt="" loading="lazy"></p>
+<p>👋👋👋👋</p>
+<h5 id="-34-手机网站支付产品包含的接口和描述如下">- 3.4、手机网站支付产品包含的接口和描述如下：</h5>
+<table>
+<thead>
+<tr>
+<th>接口名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alipay.trade.wap.pay 手机网页支付接口</td>
+<td>通过此接口传入订单参数，同时唤起支付宝手机网页支付页面</td>
+</tr>
+<tr>
+<td>alipay.trade.close 交易关闭接口</td>
+<td>通过此接口关闭此前已创建的交易，关闭后，用户将无法继续付款。仅能关闭创建后未支付的交易。</td>
+</tr>
+<tr>
+<td>alipay.trade.query 交易状态查询接口</td>
+<td>通过此接口查询某笔交易的状态，交易状态：交易创建，等待买家付款；未付款交易超时关闭，或支付完成后全额退款；交易支付成功；交易结束，不可退款。</td>
+</tr>
+<tr>
+<td>alipay.trade.refund 交易退款接口</td>
+<td>通过此接口对单笔交易完成退款操作</td>
+</tr>
+<tr>
+<td>alipay.trade.fastpay.refund.query 退款查询</td>
+<td>查询退款订单的状态</td>
+</tr>
+<tr>
+<td>alipay.data.dataservice.bill.downloadurl.query 账单查询接口</td>
+<td>调用此接口获取账单的下载链接</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://docs.open.alipay.com/api_1/alipay.trade.wap.pay/">手机网页支付接口详细API</a></p>
+<h4 id="4-如何使用沙箱环境做开发调试">4、如何使用沙箱环境做开发调试</h4>
+<p>沙箱环境是开放平台提供给开发者调试接口的环境，具体操作步骤见<a href="https://docs.open.alipay.com/200/105311">沙箱接入指南</a>。<br>
+目前支付宝沙箱环境支持手机网站支付，并且在安装了沙箱支付宝钱包后，可以唤起沙箱支付宝钱包进行支付。<br>
+在没有应用或者应用还未上线及未签约支付功能时，可使用沙箱环境做开发联调，联调完成后，切换回商家应用APPid，商家私钥，商家公钥，支付宝公钥，做线上真实逻辑测试。</p>
+<pre><code>下载支付宝开放平台助手 -&gt; 生成RSA商家应用私钥、公钥 -&gt; 沙箱环境配置生成的应用公钥获取到支付宝公钥 -&gt; AliPAySdk配置秘钥 -&gt; 安装沙箱环境支付宝APP -&gt; 客户端网页调用支付接口 -&gt; 拉起沙箱环境支付宝APP -&gt; 完成支付
+</code></pre>
+<h4 id="5-其他">5、其他</h4>
+<ul>
+<li><a href="https://developers.alipay.com/developmentAccess/developmentAccess.htm">支付宝开发者中心</a></li>
+<li><a href="https://docs.open.alipay.com/203/105288/">手机网站支付文档</a></li>
+<li><a href="https://openhome.alipay.com/platform/appDaily.htm?tab=info">沙箱应用</a></li>
+<li><a href="https://docs.open.alipay.com/54/103419">服务端 SDK</a></li>
+<li><a href="https://docs.open.alipay.com/291/105971">RSA 秘钥</a></li>
+<li><a href="https://docs.open.alipay.com/api_1/alipay.trade.wap.pay">支付接口 API</a></li>
+<li><a href="https://docs.open.alipay.com/200/ug05sr/">账户成员管理</a></li>
+<li><a href="https://docs.open.alipay.com/291/105971">支付宝开放平台开发助手</a></li>
+</ul>
+<h4 id="基于alipaysdk的沙箱环境支付demo">基于AliPaySDK的沙箱环境支付DEMO:</h4>
+<p>Demo Repo: <a href="https://github.com/fanguyun214/alipay-node-demo">https://github.com/fanguyun214/alipay-node-demo</a><br>
+扫码体验（微信环境不能拉起支付宝）：<br>
+<img src="https://fanguyun214.github.io/post-images/1583893453400.png" alt="" loading="lazy"></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://fanguyun214.github.io/post/http-ke-hu-duan-huan-cun/" class="post-title gt-a-link">
+                    HTTP客户端缓存
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '94fca913faabe61337e0',
+    clientSecret: '9ee8a359f64b424f77e6fba28063b59788b92af1',
+    repo: 'fanguyun214.github.io',
+    owner: 'fanguyun214',
+    admin: ['fanguyun214'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">⌨️ 格物、致知、诚意  🎉<br/>
+⌨️ 正心、修身、齐家  🎉</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by Jasonfan & Grider  🖥
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://fanguyun214.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
